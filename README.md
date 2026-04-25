@@ -57,3 +57,13 @@ POST /chat
 ```json
 {"message": "Suggest a comedy movie"}
 ```
+## 🏗️ Architecture Overview
+
+This project follows a **Hybrid AI Architecture** combining:
+- Intent Classification (ML)
+- LLM Fallback
+- External APIs (Recommendations)
+
+<p align="center">
+  <img src="diagrams/ChatbotProjectArchitecture.png" width="900"/>
+</p>
