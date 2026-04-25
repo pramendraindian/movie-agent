@@ -8,31 +8,31 @@
         # Command3
             python -m pip install -r requirements.txt
 
-python download_nltk.py
-python train.py
-python app/main.py
-Postman -
-Endpoint: http://127.0.0.1:8000/chat
-Try with below payloads
-Payload:
-{
+    python download_nltk.py
+    python train.py
+    python app/main.py
+    Postman -
+    Endpoint: http://127.0.0.1:8000/chat
+    Try with below payloads
+    Payload:
+        {
     "message":"Hi"
-}
--------------------
+    }
+    -------------------
 Response:
 {
     "response": "Hello! Ask me for movies or learning."
 }
 ____________________________________
-Payload: 
-{
+    Payload: 
+    {
     "message":"adventure movie"
-}
------------------------------
-Response
-{
-    "response": "Try: Inception, Avengers, Interstellar"
-}
+    }
+    -----------------------------
+    Response
+    {
+        "response": "Try: Inception, Avengers, Interstellar"
+    }
 
 ## Features
 - FastAPI backend
