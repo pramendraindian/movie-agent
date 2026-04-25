@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+torch
+nltk
+numpy
+python-dotenv
+requests

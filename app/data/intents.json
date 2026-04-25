@@ -1,0 +1,244 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hi",
+        "hello",
+        "hey"
+      ],
+      "responses": [
+        "Hello! Ask me for movies or learning."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye"
+      ],
+      "responses": [
+        "Goodbye!"
+      ]
+    },
+    {
+      "tag": "movie_action",
+      "patterns": [
+        "action movie",
+        "suggest action films",
+        "I want action movie"
+      ],
+      "responses": [
+        "Here are some action movies."
+      ]
+    },
+    {
+      "tag": "movie_comedy",
+      "patterns": [
+        "comedy movie",
+        "suggest comedy films",
+        "I want comedy movie"
+      ],
+      "responses": [
+        "Here are some comedy movies."
+      ]
+    },
+    {
+      "tag": "movie_horror",
+      "patterns": [
+        "horror movie",
+        "suggest horror films",
+        "I want horror movie"
+      ],
+      "responses": [
+        "Here are some horror movies."
+      ]
+    },
+    {
+      "tag": "movie_romantic",
+      "patterns": [
+        "romantic movie",
+        "suggest romantic films",
+        "I want romantic movie"
+      ],
+      "responses": [
+        "Here are some romantic movies."
+      ]
+    },
+    {
+      "tag": "movie_thriller",
+      "patterns": [
+        "thriller movie",
+        "suggest thriller films",
+        "I want thriller movie"
+      ],
+      "responses": [
+        "Here are some thriller movies."
+      ]
+    },
+    {
+      "tag": "movie_sci-fi",
+      "patterns": [
+        "sci-fi movie",
+        "suggest sci-fi films",
+        "I want sci-fi movie"
+      ],
+      "responses": [
+        "Here are some sci-fi movies."
+      ]
+    },
+    {
+      "tag": "movie_drama",
+      "patterns": [
+        "drama movie",
+        "suggest drama films",
+        "I want drama movie"
+      ],
+      "responses": [
+        "Here are some drama movies."
+      ]
+    },
+    {
+      "tag": "movie_fantasy",
+      "patterns": [
+        "fantasy movie",
+        "suggest fantasy films",
+        "I want fantasy movie"
+      ],
+      "responses": [
+        "Here are some fantasy movies."
+      ]
+    },
+    {
+      "tag": "movie_crime",
+      "patterns": [
+        "crime movie",
+        "suggest crime films",
+        "I want crime movie"
+      ],
+      "responses": [
+        "Here are some crime movies."
+      ]
+    },
+    {
+      "tag": "movie_adventure",
+      "patterns": [
+        "adventure movie",
+        "suggest adventure films",
+        "I want adventure movie"
+      ],
+      "responses": [
+        "Here are some adventure movies."
+      ]
+    },
+    {
+      "tag": "learning_ai",
+      "patterns": [
+        "learn ai",
+        "ai courses",
+        "study ai"
+      ],
+      "responses": [
+        "Here are resources for ai."
+      ]
+    },
+    {
+      "tag": "learning_python",
+      "patterns": [
+        "learn python",
+        "python courses",
+        "study python"
+      ],
+      "responses": [
+        "Here are resources for python."
+      ]
+    },
+    {
+      "tag": "learning_data_science",
+      "patterns": [
+        "learn data science",
+        "data science courses",
+        "study data science"
+      ],
+      "responses": [
+        "Here are resources for data science."
+      ]
+    },
+    {
+      "tag": "learning_web_development",
+      "patterns": [
+        "learn web development",
+        "web development courses",
+        "study web development"
+      ],
+      "responses": [
+        "Here are resources for web development."
+      ]
+    },
+    {
+      "tag": "learning_cloud",
+      "patterns": [
+        "learn cloud",
+        "cloud courses",
+        "study cloud"
+      ],
+      "responses": [
+        "Here are resources for cloud."
+      ]
+    },
+    {
+      "tag": "learning_devops",
+      "patterns": [
+        "learn devops",
+        "devops courses",
+        "study devops"
+      ],
+      "responses": [
+        "Here are resources for devops."
+      ]
+    },
+    {
+      "tag": "learning_design",
+      "patterns": [
+        "learn design",
+        "design courses",
+        "study design"
+      ],
+      "responses": [
+        "Here are resources for design."
+      ]
+    },
+    {
+      "tag": "learning_machine_learning",
+      "patterns": [
+        "learn machine learning",
+        "machine learning courses",
+        "study machine learning"
+      ],
+      "responses": [
+        "Here are resources for machine learning."
+      ]
+    },
+    {
+      "tag": "learning_deep_learning",
+      "patterns": [
+        "learn deep learning",
+        "deep learning courses",
+        "study deep learning"
+      ],
+      "responses": [
+        "Here are resources for deep learning."
+      ]
+    },
+    {
+      "tag": "learning_cybersecurity",
+      "patterns": [
+        "learn cybersecurity",
+        "cybersecurity courses",
+        "study cybersecurity"
+      ],
+      "responses": [
+        "Here are resources for cybersecurity."
+      ]
+    }
+  ]
+}
