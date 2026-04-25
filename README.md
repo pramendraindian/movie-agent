@@ -16,13 +16,13 @@
     Try with below payloads
     Payload:
         {
-    "message":"Hi"
-    }
+            "message":"Hi"
+        }
     -------------------
-Response:
-{
-    "response": "Hello! Ask me for movies or learning."
-}
+        Response:
+        {
+            "response": "Hello! Ask me for movies or learning."
+        }
 ____________________________________
     Payload: 
     {
