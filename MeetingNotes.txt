@@ -1,0 +1,153 @@
+🎬 1. General Movie Requests (Core Entry Points)
+
+These trigger your main recommendation flow:
+
+Recommend me a movie
+Suggest a movie to watch
+What should I watch today?
+Any good movies?
+Give me movie suggestions
+I want to watch something
+Can you suggest a film?
+Show me some movies
+What are some good films?
+I need a movie recommendation
+🎭 2. Genre-Based Questions (High Accuracy Intents)
+🔹 Action
+Suggest an action movie
+I want action films
+Recommend action movies
+Any good action movies?
+🔹 Comedy
+Suggest a comedy movie
+I want something funny
+Recommend comedy films
+Any funny movies?
+🔹 Horror
+Suggest horror movies
+I want scary movies
+Recommend a horror film
+Any spooky movies?
+🔹 Romance
+Suggest romantic movies
+I want a love story
+Recommend romance films
+Any romantic movies?
+🔹 Thriller
+Suggest thriller movies
+I want suspense films
+Recommend a thriller
+Any suspenseful movies?
+😊 3. Mood-Based Questions (Very Important)
+I feel sad, suggest a movie
+Recommend a feel-good movie
+I want something relaxing
+Suggest movies for a happy mood
+I am bored, what should I watch?
+I want something exciting
+Suggest movies to cheer me up
+I want emotional movies
+Recommend inspiring movies
+Suggest light-hearted films
+🌍 4. Language / Region-Based
+Suggest Hindi movies
+Recommend Bollywood movies
+Suggest English movies
+Recommend Hollywood films
+Any South Indian movies?
+Suggest Korean movies
+Recommend international films
+Suggest regional movies
+⭐ 5. Popular / Trending / Rating-Based
+Suggest top rated movies
+Recommend popular movies
+What are trending movies?
+Suggest IMDB top movies
+Recommend highly rated films
+What movies are trending now?
+Suggest blockbuster movies
+Recommend famous movies
+📅 6. Time-Based (Recent / Old)
+Suggest latest movies
+Recommend recent films
+Suggest movies from 2023
+Recommend classic movies
+Suggest old movies
+Recommend 90s movies
+Suggest vintage films
+👨‍🎤 7. Actor / Director-Based
+Suggest movies by Tom Cruise
+Recommend movies of Shah Rukh Khan
+Suggest films by Christopher Nolan
+Recommend Leonardo DiCaprio movies
+Movies of Aamir Khan
+Suggest movies by famous actors
+
+👉 (These may require entity extraction later)
+
+🎯 8. Situation-Based (Real User Behavior)
+Suggest movies for family
+Recommend movies for friends
+Suggest movies for date night
+Recommend movies for kids
+Suggest movies to watch alone
+Recommend weekend movies
+Suggest binge-watch movies
+🎥 9. Platform-Based (Optional Advanced)
+Suggest movies on Netflix
+Recommend Amazon Prime movies
+Suggest Disney+ movies
+What should I watch on OTT?
+🔍 10. Clarification / Follow-up Questions
+More like this
+Suggest similar movies
+Any other options?
+Give me more recommendations
+Something else?
+Show more
+❓ 11. Edge / Noisy Inputs (Important for Robustness)
+movie pls
+suggest film
+what movie
+bored movie
+good film bro
+anything to watch
+movie idea
+🧠 How to Use These (Important)
+👉 Don’t dump all into one intent
+
+Instead structure like:
+
+movie_general
+movie_action
+movie_comedy
+movie_by_mood
+movie_trending
+movie_language
+👉 Keep 5–10 patterns per intent
+
+Too many patterns in one intent:
+❌ reduces accuracy
+Too few:
+❌ poor generalization
+
+🚀 Pro Tip (Architect-Level)
+
+Combine this with:
+
+Keyword extraction (action, sad, Hindi)
+API (TMDB)
+
+👉 That’s how you move from:
+“static chatbot” → “intelligent recommender system”
+
+🔥 If you want next level
+
+I can generate:
+
+✅ Fully structured intents.json (100+ movie intents only)
+✅ With entity extraction-ready patterns
+✅ Optimized for model accuracy
+
+Just say:
+👉 “Generate movie-only intents.json (production-ready)”
