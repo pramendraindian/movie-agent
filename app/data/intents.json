@@ -1,244 +1,222 @@
 {
   "intents": [
+
     {
       "tag": "greeting",
       "patterns": [
-        "hi",
-        "hello",
-        "hey"
+        "hi", "hello", "hey", "good morning", "good evening",
+        "hey there", "hi bot"
       ],
       "responses": [
-        "Hello! Ask me for movies or learning."
+        "Hello! I can recommend movies based on genre, mood, or language. What are you looking for?"
       ]
     },
+
     {
       "tag": "goodbye",
       "patterns": [
-        "bye"
+        "bye", "goodbye", "see you", "talk later"
       ],
       "responses": [
-        "Goodbye!"
+        "Goodbye! Enjoy your movie time 🎬"
       ]
     },
+
+    {
+      "tag": "movie_general",
+      "patterns": [
+        "recommend me a movie",
+        "suggest a movie",
+        "what should I watch",
+        "any good movies",
+        "movie suggestion",
+        "I want to watch something",
+        "give me movie ideas"
+      ],
+      "responses": [
+        "Sure! Tell me a genre (action, comedy, horror) or your mood."
+      ]
+    },
+
     {
       "tag": "movie_action",
       "patterns": [
         "action movie",
         "suggest action films",
-        "I want action movie"
+        "I want action movie",
+        "any good action movies",
+        "recommend action movies"
       ],
       "responses": [
-        "Here are some action movies."
+        "Try: John Wick, Mad Max: Fury Road, Avengers: Endgame"
       ]
     },
+
     {
       "tag": "movie_comedy",
       "patterns": [
         "comedy movie",
         "suggest comedy films",
-        "I want comedy movie"
+        "I want comedy movie",
+        "funny movies",
+        "make me laugh movie"
       ],
       "responses": [
-        "Here are some comedy movies."
+        "Try: The Hangover, Superbad, The Mask"
       ]
     },
+
     {
       "tag": "movie_horror",
       "patterns": [
         "horror movie",
         "suggest horror films",
-        "I want horror movie"
+        "I want horror movie",
+        "scary movies",
+        "spooky films"
       ],
       "responses": [
-        "Here are some horror movies."
+        "Try: The Conjuring, IT, Insidious"
       ]
     },
+
     {
       "tag": "movie_romantic",
       "patterns": [
         "romantic movie",
         "suggest romantic films",
-        "I want romantic movie"
+        "I want romantic movie",
+        "love story movie",
+        "romance films"
       ],
       "responses": [
-        "Here are some romantic movies."
+        "Try: Titanic, The Notebook, La La Land"
       ]
     },
+
     {
       "tag": "movie_thriller",
       "patterns": [
         "thriller movie",
         "suggest thriller films",
-        "I want thriller movie"
+        "I want thriller movie",
+        "suspense movies"
       ],
       "responses": [
-        "Here are some thriller movies."
+        "Try: Inception, Shutter Island, Se7en"
       ]
     },
+
     {
-      "tag": "movie_sci-fi",
+      "tag": "movie_sci_fi",
       "patterns": [
-        "sci-fi movie",
-        "suggest sci-fi films",
-        "I want sci-fi movie"
+        "sci fi movie",
+        "science fiction movies",
+        "space movies",
+        "future movies"
       ],
       "responses": [
-        "Here are some sci-fi movies."
+        "Try: Interstellar, The Matrix, Blade Runner 2049"
       ]
     },
+
     {
       "tag": "movie_drama",
       "patterns": [
         "drama movie",
-        "suggest drama films",
-        "I want drama movie"
+        "emotional movies",
+        "serious films"
       ],
       "responses": [
-        "Here are some drama movies."
+        "Try: The Pursuit of Happyness, Forrest Gump, Fight Club"
       ]
     },
+
     {
-      "tag": "movie_fantasy",
+      "tag": "movie_mood_happy",
       "patterns": [
-        "fantasy movie",
-        "suggest fantasy films",
-        "I want fantasy movie"
+        "feel good movie",
+        "happy movies",
+        "movies to cheer me up",
+        "uplifting films"
       ],
       "responses": [
-        "Here are some fantasy movies."
+        "Try: Forrest Gump, The Intern, Zindagi Na Milegi Dobara"
       ]
     },
+
     {
-      "tag": "movie_crime",
+      "tag": "movie_mood_sad",
       "patterns": [
-        "crime movie",
-        "suggest crime films",
-        "I want crime movie"
+        "sad movie",
+        "emotional movie",
+        "I feel sad suggest movie"
       ],
       "responses": [
-        "Here are some crime movies."
+        "Try: The Fault in Our Stars, A Walk to Remember"
       ]
     },
+
     {
-      "tag": "movie_adventure",
+      "tag": "movie_bollywood",
       "patterns": [
-        "adventure movie",
-        "suggest adventure films",
-        "I want adventure movie"
+        "hindi movies",
+        "bollywood movies",
+        "indian films"
       ],
       "responses": [
-        "Here are some adventure movies."
+        "Try: 3 Idiots, Dangal, Zindagi Na Milegi Dobara"
       ]
     },
+
     {
-      "tag": "learning_ai",
+      "tag": "movie_hollywood",
       "patterns": [
-        "learn ai",
-        "ai courses",
-        "study ai"
+        "english movies",
+        "hollywood movies"
       ],
       "responses": [
-        "Here are resources for ai."
+        "Try: Interstellar, Avengers, The Dark Knight"
       ]
     },
+
     {
-      "tag": "learning_python",
+      "tag": "movie_trending",
       "patterns": [
-        "learn python",
-        "python courses",
-        "study python"
+        "trending movies",
+        "popular movies",
+        "latest movies",
+        "top rated movies"
       ],
       "responses": [
-        "Here are resources for python."
+        "Popular picks: Oppenheimer, Dune, Barbie"
       ]
     },
+
     {
-      "tag": "learning_data_science",
+      "tag": "movie_kids",
       "patterns": [
-        "learn data science",
-        "data science courses",
-        "study data science"
+        "movies for kids",
+        "family movies",
+        "children movies"
       ],
       "responses": [
-        "Here are resources for data science."
+        "Try: Toy Story, Frozen, Finding Nemo"
       ]
     },
+
     {
-      "tag": "learning_web_development",
+      "tag": "fallback",
       "patterns": [
-        "learn web development",
-        "web development courses",
-        "study web development"
+        "asdfgh",
+        "random text",
+        "blah blah",
+        "I don't understand"
       ],
       "responses": [
-        "Here are resources for web development."
-      ]
-    },
-    {
-      "tag": "learning_cloud",
-      "patterns": [
-        "learn cloud",
-        "cloud courses",
-        "study cloud"
-      ],
-      "responses": [
-        "Here are resources for cloud."
-      ]
-    },
-    {
-      "tag": "learning_devops",
-      "patterns": [
-        "learn devops",
-        "devops courses",
-        "study devops"
-      ],
-      "responses": [
-        "Here are resources for devops."
-      ]
-    },
-    {
-      "tag": "learning_design",
-      "patterns": [
-        "learn design",
-        "design courses",
-        "study design"
-      ],
-      "responses": [
-        "Here are resources for design."
-      ]
-    },
-    {
-      "tag": "learning_machine_learning",
-      "patterns": [
-        "learn machine learning",
-        "machine learning courses",
-        "study machine learning"
-      ],
-      "responses": [
-        "Here are resources for machine learning."
-      ]
-    },
-    {
-      "tag": "learning_deep_learning",
-      "patterns": [
-        "learn deep learning",
-        "deep learning courses",
-        "study deep learning"
-      ],
-      "responses": [
-        "Here are resources for deep learning."
-      ]
-    },
-    {
-      "tag": "learning_cybersecurity",
-      "patterns": [
-        "learn cybersecurity",
-        "cybersecurity courses",
-        "study cybersecurity"
-      ],
-      "responses": [
-        "Here are resources for cybersecurity."
+        "Sorry, I didn't get that. You can ask for movie recommendations by genre or mood."
       ]
     }
+
   ]
 }
