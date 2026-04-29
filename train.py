@@ -15,9 +15,17 @@ for intent in intents['intents']:
         xy.append((w, intent['tag']))
 
 
+print(f"Before stemming:")
+print(f"Number of unique words: {len(all_words)}")
+print(f"Unique words: {all_words}")
+print(f"Number of tags: {len(tags)}")
+print(f"Unique tags: {tags}")
+
 all_words = sorted(set([stem(w) for w in all_words]))
 tags = sorted(set(tags))
 
+
+print(f"After stemming:")
 print(f"Number of unique words: {len(all_words)}")
 print(f"Unique words: {all_words}")
 print(f"Number of tags: {len(tags)}")
@@ -31,6 +39,11 @@ for (pattern, tag) in xy:
 
 X_train = np.array(X_train)
 y_train = np.array(y_train)
+
+
+print(f"After bagging:")
+print(f"X_train: {X_train}")
+print(f"y_train: {y_train}")
 
 model = NeuralNet(len(X_train[0]), 8, len(tags))
 criterion = torch.nn.CrossEntropyLoss()
