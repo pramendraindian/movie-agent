@@ -44,11 +44,11 @@ ____________________________________
 - Ready for Docker deployment
 
 ## Run
-
 ```bash
 pip install -r requirements.txt
 python train.py
-uvicorn app.main:app --reload
+Python app/main.py
+streamlit run chatbot_ui.py
 ```
 
 ## API
