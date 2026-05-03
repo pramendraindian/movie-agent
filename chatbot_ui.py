@@ -1,3 +1,4 @@
+from base64 import b64encode
 from html import escape
 from pathlib import Path
 
@@ -7,6 +8,8 @@ import streamlit as st
 
 DEFAULT_API_URL = "http://localhost:8000/chat"
 CSS_FILE = Path(__file__).with_name("chatbot_ui.css")
+FILM_REEL_IMAGE = Path(__file__).parent / "assets" / "film_reel.svg"
+CHAT_EMPTY_IMAGE = Path(__file__).parent / "assets" / "chat_empty.svg"
 
 
 def configure_page() -> None:
@@ -24,6 +27,33 @@ def load_css() -> None:
 
     css = CSS_FILE.read_text(encoding="utf-8")
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+
+
+def render_dashboard_header() -> None:
+    image_src = image_to_data_uri(FILM_REEL_IMAGE)
+
+    st.markdown(
+        f"""
+        <section class="dashboard-hero">
+            <img src="{image_src}" alt="Film reel" />
+            <div>
+                <h1>MoodFlix Movie Recommender</h1>
+                <p>Discover films by mood, trending picks, available time, and your watch preferences.</p>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def image_to_data_uri(path: Path) -> str:
+    if path.exists():
+        image_data = b64encode(path.read_bytes()).decode("ascii")
+        image_src = f"data:image/svg+xml;base64,{image_data}"
+    else:
+        image_src = ""
+
+    return image_src
 
 
 def initialize_state() -> None:
@@ -85,6 +115,9 @@ def render_header() -> None:
                     <h1>ChatBot</h1>
                     <p>FastAPI intent service</p>
                 </div>
+                <div class="chat-header-strip" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -125,11 +158,18 @@ def render_bubble(role: str, text: str, is_error: bool = False) -> None:
 
 
 def render_empty_state() -> None:
+    image_src = image_to_data_uri(CHAT_EMPTY_IMAGE)
     st.markdown(
-        """
+        f"""
         <div class="empty-state">
-            <div class="icon">AI</div>
-            <p>Send a message to get started.</p>
+            <img src="{image_src}" alt="" />
+            <h2>Find the right movie faster</h2>
+            <p>Try a mood, genre, trend, or how much time you have.</p>
+            <div class="prompt-chips">
+                <span>Relaxing</span>
+                <span>Trending</span>
+                <span>90 min</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -235,6 +275,7 @@ def main() -> None:
     load_css()
     initialize_state()
     render_sidebar()
+    render_dashboard_header()
 
     if not st.session_state.chat_open:
         render_launcher()
