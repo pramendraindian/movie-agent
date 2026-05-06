@@ -74,6 +74,7 @@ def get_intent_response(msg):
     print(f"[BERT] Predicted intent: {tag} with confidence {conf:.2f}")
 
     # Fallback to LLM if low confidence
+    # Optional TODO: With BERT, confidence is usually higher, we might want to: if conf < 0.5:
     if conf < 0.7:
         return llm_fallback(msg)
 
