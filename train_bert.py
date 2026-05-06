@@ -2,13 +2,14 @@ import json
 import torch
 from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertForSequenceClassification
+from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from transformers import Trainer, TrainingArguments
 from torch.utils.data import Dataset
 
 # ========================
 # Load and preprocess data
 # ========================
-with open("intents.json") as f:
+with open("app/data/intents.json") as f:
     data = json.load(f)
 
 texts = []
@@ -68,6 +69,26 @@ model = BertForSequenceClassification.from_pretrained(
     "bert-base-uncased",
     num_labels=len(tags)
 )
+#Freeze BERT layers
+# for param in model.bert.parameters():
+#     param.requires_grad = False
+
+for name, param in model.named_parameters():
+    if "encoder.layer.10" in name or "encoder.layer.11" in name or "classifier" in name:
+        param.requires_grad = True
+    else:
+        param.requires_grad = False
+
+# Unfreeze last 2 layers
+for name, param in model.named_parameters():
+    if param.requires_grad:
+        print("Trainable:", name)
+
+# Instead of BERT, use DistilBERT (lighter model)
+# model = DistilBertForSequenceClassification.from_pretrained(
+#     "distilbert-base-uncased",
+#     num_labels=len(tags)
+# )
 
 # ========================
 # Training config
@@ -77,7 +98,8 @@ training_args = TrainingArguments(
     num_train_epochs=5,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    evaluation_strategy="epoch",
+    #evaluation_strategy="epoch",
+    eval_strategy="epoch",
     logging_dir="./logs",
     save_strategy="epoch"
 )
