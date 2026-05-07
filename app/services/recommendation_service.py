@@ -25,11 +25,29 @@ def get_movie_recommendations(msg: str) -> str:
     try:
         engine = get_recommendation_engine()
 
+        # entities = extract_entities(msg)
+
+        # if "genre" in entities:
+        #     recommendations = engine.get_genre_recommendations(
+        #         entities["genre"], n_recommendations=5
+        #     )
+
+        # elif "year" in entities:
+        #     recommendations = engine.get_movies_by_year(
+        #         entities["year"]
+        #     )
+
+        # elif "top" in msg.lower() or "best" in msg.lower():
+        #     recommendations = engine.get_top_rated_recommendations(5)
+
+        # else:
+        #     recommendations = engine.get_trending_recommendations(5)
         entities = extract_entities(msg)
 
         if "genre" in entities:
             recommendations = engine.get_genre_recommendations(
-                entities["genre"], n_recommendations=5
+                entities["genre"],
+                n_recommendations=5
             )
 
         elif "year" in entities:
@@ -37,8 +55,11 @@ def get_movie_recommendations(msg: str) -> str:
                 entities["year"]
             )
 
-        elif "top" in msg.lower() or "best" in msg.lower():
+        elif entities.get("sort") == "rating":
             recommendations = engine.get_top_rated_recommendations(5)
+
+        elif entities.get("sort") == "trending":
+            recommendations = engine.get_trending_recommendations(5)
 
         else:
             recommendations = engine.get_trending_recommendations(5)
