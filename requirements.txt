@@ -5,3 +5,8 @@ nltk
 numpy
 python-dotenv
 requests
+pandas
+scikit-learn
+streamlit
+requests
+
