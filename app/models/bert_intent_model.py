@@ -1,11 +1,15 @@
 from transformers import BertTokenizer, BertForSequenceClassification
+from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 import torch
 import pickle
 
 class BertIntentClassifier:
     def __init__(self, model_path="intent_model"):
-        self.tokenizer = BertTokenizer.from_pretrained(model_path)
-        self.model = BertForSequenceClassification.from_pretrained(model_path)
+        # self.tokenizer = BertTokenizer.from_pretrained(model_path)
+        # self.model = BertForSequenceClassification.from_pretrained(model_path)
+
+        self.tokenizer = DistilBertTokenizer.from_pretrained(model_path)
+        self.model = DistilBertForSequenceClassification.from_pretrained(model_path)
 
         with open(f"{model_path}/meta.pkl", "rb") as f:
             meta = pickle.load(f)

@@ -72,7 +72,8 @@ def extract_entities(text: str):
     # -----------------------
     for mood, keywords in MOODS.items():
 
-        if any(keyword in text for keyword in keywords):
+        #if any(keyword in text for keyword in keywords):
+        if any(re.search(rf"\b{re.escape(keyword)}\b", text) for keyword in keywords):
             entities["mood"] = mood
             break
 

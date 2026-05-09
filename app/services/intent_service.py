@@ -43,42 +43,95 @@
 #     return "Sorry, I didn’t understand."
 
 
+import json
+import random
+
+from app.models.bert_intent_model import BertIntentClassifier
+from app.services.llm_service import llm_fallback
+from app.services.recommendation_service import recommend
+
+# Load intents (for static responses)
+with open("app/data/intents.json") as f:
+    intents = json.load(f)
+
+# Load BERT classifier
+classifier = BertIntentClassifier()
+
+# =========================
+# BERT-based classification
+# =========================
+def classify(msg):
+    tag, confidence = classifier.predict(msg)
+    return tag, confidence
+
+
+# =========================
+# Main response handler
+# =========================
+def get_intent_response(msg):
+    tag, conf = classify(msg)
+
+    print(f"[BERT] Predicted intent: {tag} with confidence {conf:.2f}")
+
+    # Fallback to LLM if low confidence
+    # Optional TODO: With BERT, confidence is usually higher, we might want to: if conf < 0.5:
+    if conf < 0.5:
+        return llm_fallback(msg)
+
+    # Route to recommendation system
+    if tag.startswith("movie"):
+        return recommend("movie", msg)
+
+    if tag.startswith("learning"):
+        return recommend("learning", msg)
+
+    # simpler intent detection
+    # if tag == "movie_recommendation":
+    #     return recommend("movie", msg)
+
+    # if tag == "learning_recommendation":
+    #     return recommend("learning", msg)
+
+    # Static responses
+    for intent in intents["intents"]:
+        if intent["tag"] == tag:
+            return random.choice(intent.get("responses", ["Okay."]))
+
+    return "Sorry, I didn’t understand."
+
+
+# Test - Replace old BERT/NN imports
 # import json
 # import random
 
-# from app.models.bert_intent_model import BertIntentClassifier
+# from app.models.semantic_intent_model import SemanticIntentClassifier
 # from app.services.llm_service import llm_fallback
 # from app.services.recommendation_service import recommend
 
-# # Load intents (for static responses)
+
+# # Load intents
 # with open("app/data/intents.json") as f:
 #     intents = json.load(f)
 
-# # Load BERT classifier
-# classifier = BertIntentClassifier()
+# # Load semantic classifier
+# classifier = SemanticIntentClassifier()
 
-# # =========================
-# # BERT-based classification
-# # =========================
+
 # def classify(msg):
-#     tag, confidence = classifier.predict(msg)
-#     return tag, confidence
+#     return classifier.predict(msg)
 
 
-# # =========================
-# # Main response handler
-# # =========================
 # def get_intent_response(msg):
+
 #     tag, conf = classify(msg)
 
-#     print(f"[BERT] Predicted intent: {tag} with confidence {conf:.2f}")
+#     print(f"[Semantic] Intent: {tag}, Confidence: {conf:.2f}")
 
-#     # Fallback to LLM if low confidence
-#     # Optional TODO: With BERT, confidence is usually higher, we might want to: if conf < 0.5:
-#     if conf < 0.7:
+#     # Confidence threshold
+#     if conf < 0.45:
 #         return llm_fallback(msg)
 
-#     # Route to recommendation system
+#     # Route recommendations
 #     if tag.startswith("movie"):
 #         return recommend("movie", msg)
 
@@ -88,52 +141,6 @@
 #     # Static responses
 #     for intent in intents["intents"]:
 #         if intent["tag"] == tag:
-#             return random.choice(intent.get("responses", ["Okay."]))
+#             return random.choice(intent["responses"])
 
-#     return "Sorry, I didn’t understand."
-
-
-# Test - Replace old BERT/NN imports
-import json
-import random
-
-from app.models.semantic_intent_model import SemanticIntentClassifier
-from app.services.llm_service import llm_fallback
-from app.services.recommendation_service import recommend
-
-
-# Load intents
-with open("app/data/intents.json") as f:
-    intents = json.load(f)
-
-# Load semantic classifier
-classifier = SemanticIntentClassifier()
-
-
-def classify(msg):
-    return classifier.predict(msg)
-
-
-def get_intent_response(msg):
-
-    tag, conf = classify(msg)
-
-    print(f"[Semantic] Intent: {tag}, Confidence: {conf:.2f}")
-
-    # Confidence threshold
-    if conf < 0.45:
-        return llm_fallback(msg)
-
-    # Route recommendations
-    if tag.startswith("movie"):
-        return recommend("movie", msg)
-
-    if tag.startswith("learning"):
-        return recommend("learning", msg)
-
-    # Static responses
-    for intent in intents["intents"]:
-        if intent["tag"] == tag:
-            return random.choice(intent["responses"])
-
-    return "Sorry, I didn't understand."
+#     return "Sorry, I didn't understand."
