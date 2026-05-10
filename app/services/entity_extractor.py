@@ -51,6 +51,12 @@ MOODS = {
     "family": ["family", "kids", "children"]
 }
 
+LANGUAGES = {
+    "hindi": ["hindi", "bollywood"],
+    "english": ["english", "hollywood"],
+    "korean": ["korean", "kdrama"]
+}
+
 
 def extract_entities(text: str):
 
@@ -96,5 +102,10 @@ def extract_entities(text: str):
     # -----------------------
     if any(word in text for word in ["trending", "popular", "latest"]):
         entities["sort"] = "trending"
+
+    for lang, keywords in LANGUAGES.items():
+
+    if any(k in text for k in keywords):
+        entities["language"] = lang
 
     return entities
