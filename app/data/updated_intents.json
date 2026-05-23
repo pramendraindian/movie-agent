@@ -1,0 +1,351 @@
+{
+  "examples": [
+
+    {
+      "text": "hi",
+      "intent": "greeting"
+    },
+    {
+      "text": "hello there",
+      "intent": "greeting"
+    },
+    {
+      "text": "hey bot",
+      "intent": "greeting"
+    },
+    {
+      "text": "good morning",
+      "intent": "greeting"
+    },
+    {
+      "text": "good evening",
+      "intent": "greeting"
+    },
+    {
+      "text": "hey how are you",
+      "intent": "greeting"
+    },
+    {
+      "text": "yo",
+      "intent": "greeting"
+    },
+    {
+      "text": "hiya",
+      "intent": "greeting"
+    },
+    {
+      "text": "nice to meet you",
+      "intent": "greeting"
+    },
+    {
+      "text": "hello assistant",
+      "intent": "greeting"
+    },
+
+    {
+      "text": "bye",
+      "intent": "goodbye"
+    },
+    {
+      "text": "goodbye",
+      "intent": "goodbye"
+    },
+    {
+      "text": "see you later",
+      "intent": "goodbye"
+    },
+    {
+      "text": "talk to you later",
+      "intent": "goodbye"
+    },
+    {
+      "text": "catch you later",
+      "intent": "goodbye"
+    },
+    {
+      "text": "see ya",
+      "intent": "goodbye"
+    },
+    {
+      "text": "i need to leave now",
+      "intent": "goodbye"
+    },
+    {
+      "text": "talk again soon",
+      "intent": "goodbye"
+    },
+    {
+      "text": "have a good day",
+      "intent": "goodbye"
+    },
+
+    {
+      "text": "what should i watch tonight",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "recommend a good movie",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "i want something funny to watch",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "best sci fi movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "movies like inception",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "dark psychological thrillers",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "family movies for weekend",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "funny hindi movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "best suspense films",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "movies with plot twists",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "good horror movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "i need a relaxing movie",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "movies to cheer me up",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "top action films",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "best imdb movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "recommend netflix style movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "something entertaining to watch",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "movies for date night",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "award winning films",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "popular hollywood movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "best comedy films",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "good movies for friends",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "something scary to watch",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "classic movies everyone should watch",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "what are the best thrillers",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "mind bending movies",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "i am bored suggest a movie",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "what movies are worth watching",
+      "intent": "movie_recommendation"
+    },
+    {
+      "text": "recommend some entertaining films",
+      "intent": "movie_recommendation"
+    },
+
+    {
+      "text": "how to learn python",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "best programming courses",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "good websites for coding practice",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "teach me machine learning",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "web development tutorials",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "resources for data science",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "how do i become a software engineer",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "best tutorials for coding",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "learn react js",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "courses for backend development",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "where can i study ai",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "best websites to learn programming",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "recommend some coding tutorials",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "how to prepare for software interviews",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "best machine learning resources",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "learn system design",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "tutorials for java spring boot",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "where can i practice coding",
+      "intent": "learning_recommendation"
+    },
+
+    {
+      "text": "what should i learn tonight",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "recommend python tutorials",
+      "intent": "learning_recommendation"
+    },
+    {
+      "text": "best courses for developers",
+      "intent": "learning_recommendation"
+    },
+
+    {
+      "text": "what is the weather today",
+      "intent": "fallback"
+    },
+    {
+      "text": "book me a cab",
+      "intent": "fallback"
+    },
+    {
+      "text": "play songs",
+      "intent": "fallback"
+    },
+    {
+      "text": "open youtube",
+      "intent": "fallback"
+    },
+    {
+      "text": "tell me about politics",
+      "intent": "fallback"
+    },
+    {
+      "text": "can you cook food",
+      "intent": "fallback"
+    },
+    {
+      "text": "who won the match",
+      "intent": "fallback"
+    },
+    {
+      "text": "random nonsense",
+      "intent": "fallback"
+    },
+    {
+      "text": "abracadabra",
+      "intent": "fallback"
+    },
+    {
+      "text": "order me pizza",
+      "intent": "fallback"
+    },
+    {
+      "text": "what is 2 plus 2",
+      "intent": "fallback"
+    },
+    {
+      "text": "translate this sentence",
+      "intent": "fallback"
+    },
+    {
+      "text": "turn on bluetooth",
+      "intent": "fallback"
+    },
+    {
+      "text": "who is the prime minister",
+      "intent": "fallback"
+    },
+    {
+      "text": "schedule a meeting",
+      "intent": "fallback"
+    },
+    {
+      "text": "tell me a joke",
+      "intent": "fallback"
+    }
+
+  ]
+}

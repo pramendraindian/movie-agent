@@ -1,6 +1,9 @@
 fastapi
 uvicorn
 torch
+transformers
+accelerate>=1.1.0
+evaluate
 nltk
 numpy
 python-dotenv
@@ -8,5 +11,4 @@ requests
 pandas
 scikit-learn
 streamlit
-requests
 
