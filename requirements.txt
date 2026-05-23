@@ -11,4 +11,5 @@ requests
 pandas
 scikit-learn
 streamlit
+sentencepiece
 

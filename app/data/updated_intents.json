@@ -41,6 +41,26 @@
       "text": "hello assistant",
       "intent": "greeting"
     },
+    {
+      "text": "hey there buddy",
+      "intent": "greeting"
+    },
+    {
+      "text": "what's up",
+      "intent": "greeting"
+    },
+    {
+      "text": "how are you doing",
+      "intent": "greeting"
+    },
+    {
+      "text": "good afternoon",
+      "intent": "greeting"
+    },
+    {
+      "text": "nice seeing you",
+      "intent": "greeting"
+    },
 
     {
       "text": "bye",
