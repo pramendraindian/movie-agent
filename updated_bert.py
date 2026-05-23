@@ -109,21 +109,6 @@ tokenizer = BertTokenizer.from_pretrained(
     "bert-base-uncased"
 )
 
-# train_encodings = tokenizer(
-#     train_s1,
-#     train_s2,
-#     truncation=True,
-#     padding=True,
-#     max_length=64
-# )
-
-# val_encodings = tokenizer(
-#     val_s1,
-#     val_s2,
-#     truncation=True,
-#     padding=True
-# )
-
 train_encodings = tokenizer(
     train_s1,
     train_s2,
