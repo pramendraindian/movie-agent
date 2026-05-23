@@ -313,6 +313,37 @@ class RecommendationEngine:
         except Exception as e:
             print(f"Error in trending recommendation: {e}")
             return []
+
+    def get_runtime_recommendations(
+        self,
+        target_minutes: int,
+        n_recommendations: int = 5,
+        tolerance_minutes: int = 5
+    ) -> List[Dict]:
+        """Get highly rated movies close to a target runtime."""
+        if self.movies_df is None or len(self.movies_df) == 0:
+            return []
+
+        try:
+            filtered = self.movies_df[
+                self.movies_df['runtime'].between(
+                    target_minutes - tolerance_minutes,
+                    target_minutes + tolerance_minutes,
+                    inclusive="both",
+                )
+            ]
+
+            if filtered.empty:
+                filtered = self.movies_df.iloc[
+                    (self.movies_df['runtime'] - target_minutes).abs().argsort()
+                ].head(n_recommendations)
+            else:
+                filtered = filtered.nlargest(n_recommendations, 'rating')
+
+            return self._format_recommendations(filtered.index)
+        except Exception as e:
+            print(f"Error in runtime recommendation: {e}")
+            return []
     
     def get_top_rated_recommendations(
         self, 

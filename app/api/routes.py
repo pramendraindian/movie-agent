@@ -9,4 +9,4 @@ class ChatRequest(BaseModel):
 
 @router.post("/chat")
 def chat(req: ChatRequest):
-    return {"response": get_intent_response(req.message)}
+    return get_intent_response(req.message)
