@@ -91,5 +91,5 @@ This project follows a **Hybrid AI Architecture** combining:
 - External APIs (Recommendations)
 
 <p align="center">
-  <img src="diagrams/ChatbotProjectArchitecture - Copy.png" width="900"/>
+  <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
