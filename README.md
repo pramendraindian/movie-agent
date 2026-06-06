@@ -91,5 +91,8 @@ This project follows a **Hybrid AI Architecture** combining:
 - External APIs (Recommendations)
 
 <p align="center">
+## Contributors
+        <a href="https://github.com/emonhaz">Moni</a>
+        <a href="https://github.com/emonhaz">Pramendra Singh</a>
   <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
