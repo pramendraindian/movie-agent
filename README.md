@@ -5,7 +5,7 @@ Dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k
             python -m venv .venv
         # Command2
         README.md
-            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& E:\GIT\movie-agent\.venv\Scripts\Activate.ps1)
+            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& C:\IITD AIML\Projects\Movie Agent\movie-agent\.venv\Scripts\Activate.ps1)
         # Command3
             python -m pip install -r requirements.txt
 
