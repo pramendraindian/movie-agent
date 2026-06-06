@@ -99,3 +99,6 @@ This project follows a **Hybrid AI Architecture** combining:
 
 - [Moni](https://github.com/emonhaz)
 - [Pramendra Singh](https://github.com/your-github-username)
+- [Sajith](https://github.com/sajithkn-alt)
+- Shashank(https://github.com/shashank160790)
+
