@@ -1,8 +1,13 @@
-import json, torch, random
+import json
+import random
+
+import torch
+
 from app.models.intent_model import NeuralNet
-from app.utils.nlp_utils import tokenize, bag_of_words
 from app.services.llm_service import llm_fallback
 from app.services.recommendation_service import recommend
+from app.utils.nlp_utils import bag_of_words, tokenize
+
 
 with open("app/data/intents.json") as f:
     intents = json.load(f)
@@ -16,6 +21,28 @@ model.eval()
 all_words = data["all_words"]
 tags = data["tags"]
 
+
+def text_response(text: str) -> dict:
+    return {"response": text, "movies": []}
+
+
+def is_movie_query(msg: str) -> bool:
+    msg_lower = msg.lower()
+    movie_keywords = [
+        "movie",
+        "movies",
+        "film",
+        "films",
+        "watch",
+        "trending",
+        "popular",
+        "relaxing",
+        "feel good",
+    ]
+    has_duration = any(unit in msg_lower for unit in [" min", " mins", " minute", " minutes"])
+    return has_duration or any(keyword in msg_lower for keyword in movie_keywords)
+
+
 def classify(msg):
     X = bag_of_words(tokenize(msg), all_words)
     X = torch.from_numpy(X).float()
@@ -24,11 +51,16 @@ def classify(msg):
     conf, pred = torch.max(probs, dim=0)
     return tags[pred.item()], conf.item()
 
+
 def get_intent_response(msg):
     tag, conf = classify(msg)
     print(f"Predicted intent: {tag} with confidence {conf:.2f}")
+
+    if is_movie_query(msg):
+        return recommend("movie", msg)
+
     if conf < 0.7:
-        return llm_fallback(msg)
+        return text_response(llm_fallback(msg))
 
     if tag.startswith("movie"):
         return recommend("movie", msg)
@@ -38,6 +70,6 @@ def get_intent_response(msg):
 
     for intent in intents["intents"]:
         if intent["tag"] == tag:
-            return random.choice(intent["responses"])
+            return text_response(random.choice(intent["responses"]))
 
-    return "Sorry, I didn’t understand."
+    return text_response("Sorry, I didn't understand.")
