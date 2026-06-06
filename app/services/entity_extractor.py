@@ -104,8 +104,8 @@ def extract_entities(text: str):
         entities["sort"] = "trending"
 
     for lang, keywords in LANGUAGES.items():
-
-    if any(k in text for k in keywords):
-        entities["language"] = lang
+        if any(k in text for k in keywords):
+            entities["language"] = lang
+            break
 
     return entities
