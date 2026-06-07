@@ -14,6 +14,29 @@ with open("app/data/intents.json") as f:
     intents = json.load(f)
 
 
+def text_response(text: str) -> dict:
+    return {"response": text, "movies": []}
+
+
+def is_movie_query(msg: str) -> bool:
+    msg_lower = msg.lower()
+    movie_keywords = [
+        "movie",
+        "movies",
+        "film",
+        "films",
+        "watch",
+        "trending",
+        "popular",
+        "relaxing",
+        "feel good",
+    ]
+    has_duration = any(
+        unit in msg_lower for unit in [" min", " mins", " minute", " minutes"]
+    )
+    return has_duration or any(keyword in msg_lower for keyword in movie_keywords)
+
+
 def classify(msg):
     return classifier.predict(msg)
 
@@ -24,8 +47,11 @@ def get_intent_response(msg):
         f"[{classifier.strategy}:{INTENT_MODEL_PATH}] intent={tag} conf={conf:.2f}"
     )
 
+    if is_movie_query(msg):
+        return recommend("movie", msg)
+
     if conf < CONF_THRESHOLD or tag == "fallback":
-        return llm_fallback(msg)
+        return text_response(llm_fallback(msg))
 
     if tag.startswith("movie") or tag == "movie_recommendation":
         return recommend("movie", msg)
@@ -35,6 +61,6 @@ def get_intent_response(msg):
 
     for intent in intents["intents"]:
         if intent["tag"] == tag:
-            return random.choice(intent.get("responses", ["Okay."]))
+            return text_response(random.choice(intent.get("responses", ["Okay."])))
 
-    return "Sorry, I didn't understand."
+    return text_response("Sorry, I didn't understand.")

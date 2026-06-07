@@ -44,11 +44,36 @@ ____________________________________
 - Ready for Docker deployment
 
 ## Run
+### Windows quick start
+
+Run setup once:
+
+```bat
+scripts\setup.bat
+```
+
+Then start the backend and Streamlit UI anytime with:
+
+```bat
+scripts\run_app.bat
+```
+
+You can also run them separately:
+
+```bat
+scripts\run_api.bat
+scripts\run_ui.bat
+```
+
+### Manual commands
+
 ```bash
-pip install -r requirements.txt
-python train.py
-Python app/main.py
-streamlit run chatbot_ui.py
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe download_nltk.py
+.\.venv\Scripts\python.exe train.py
+.\.venv\Scripts\python.exe app/main.py
+.\.venv\Scripts\python.exe -m streamlit run chatbot_ui.py
 ```
 
 ## API
@@ -66,5 +91,14 @@ This project follows a **Hybrid AI Architecture** combining:
 - External APIs (Recommendations)
 
 <p align="center">
-  <img src="diagrams/ChatbotProjectArchitecture.png" width="900"/>
+  <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
+
+
+## Contributors
+
+- [Moni](https://github.com/emonhaz)
+- [Pramendra Singh](https://github.com/your-github-username)
+- [Sajith](https://github.com/sajithkn-alt)
+- [Shashank](https://github.com/shashank160790)
+
