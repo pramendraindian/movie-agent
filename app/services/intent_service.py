@@ -1,12 +1,15 @@
 import json
 import os
 import random
+from dotenv import load_dotenv
 
 from app.models.intent_classifier_factory import load_intent_classifier, resolve_model_path
 from app.services.llm_service import llm_fallback
 from app.services.recommendation_service import recommend
 
-INTENT_MODEL_PATH = resolve_model_path()
+load_dotenv()
+INTENT_MODEL_PATH = os.getenv("INTENT_MODEL_PATH","" )
+resolve_model_path()
 classifier = load_intent_classifier(INTENT_MODEL_PATH)
 CONF_THRESHOLD = float(os.getenv("INTENT_THRESHOLD", classifier.threshold))
 

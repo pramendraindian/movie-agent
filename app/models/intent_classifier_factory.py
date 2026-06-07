@@ -27,7 +27,6 @@ STRATEGY_ALIASES = {
 def resolve_model_path(model_path: Optional[str] = None) -> str:
     if model_path:
         return model_path
-
     if env_path := os.getenv("INTENT_MODEL_PATH"):
         return env_path
 
