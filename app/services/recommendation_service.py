@@ -1,5 +1,6 @@
 import re
 
+from app.services.entity_extractor import extract_entities
 from app.utils.movie_utils import get_recommendation_engine
 
 
@@ -23,43 +24,22 @@ def recommend(domain, msg):
     """
     if domain == "movie":
         return get_movie_recommendations(msg)
-    elif domain == "learning":
+    if domain == "learning":
         return get_learning_recommendations(msg)
-    else:
-        return text_response("I can help with movie or learning recommendations. What would you like?")
+    return text_response("I can help with movie or learning recommendations. What would you like?")
 
 
 def get_movie_recommendations(msg: str) -> dict:
-    """Get movie recommendations based on user message."""
+    """Get movie recommendations based on user message and extracted entities."""
     try:
         engine = get_recommendation_engine()
-
-        genre_keywords = {
-            "action": ["action", "fight", "war", "battle", "spy", "thriller"],
-            "comedy": ["comedy", "funny", "laugh", "humor", "hilarious"],
-            "drama": ["drama", "emotional", "serious", "intense", "touching"],
-            "horror": ["horror", "scary", "frighten", "terror", "creepy"],
-            "romance": ["romance", "love", "romantic", "couple", "relationship"],
-            "adventure": ["adventure", "explore", "journey", "expedition", "quest"],
-            "sci-fi": ["sci-fi", "science fiction", "future", "space", "alien", "futuristic"],
-            "animation": ["animation", "animated", "cartoon", "anime"],
-            "fantasy": ["fantasy", "magic", "magical", "wizard", "mythical"],
-            "thriller": ["thriller", "suspense", "mystery", "detective"],
-        }
-
+        entities = extract_entities(msg)
         msg_lower = msg.lower()
-        detected_genre = None
+
         duration_match = re.search(
             r"\b(\d{2,3})\s*(?:min|mins|minute|minutes)\b",
             msg_lower,
         )
-
-        for genre, keywords in genre_keywords.items():
-            if any(keyword in msg_lower for keyword in keywords):
-                detected_genre = genre
-                break
-
-        recommendations = []
 
         if duration_match:
             target_minutes = int(duration_match.group(1))
@@ -67,22 +47,29 @@ def get_movie_recommendations(msg: str) -> dict:
                 target_minutes,
                 n_recommendations=5,
             )
-        elif "relaxing" in msg_lower or "feel good" in msg_lower or "light" in msg_lower:
+        elif (
+            "relaxing" in msg_lower
+            or "feel good" in msg_lower
+            or "light" in msg_lower
+            or entities.get("mood") == "feel_good"
+        ):
             recommendations = engine.get_genre_recommendations(
                 "comedy",
                 n_recommendations=5,
             )
-        elif detected_genre:
+        elif "genre" in entities:
             recommendations = engine.get_genre_recommendations(
-                detected_genre,
+                entities["genre"],
                 n_recommendations=5,
             )
-        elif "trending" in msg_lower or "popular" in msg_lower:
-            recommendations = engine.get_trending_recommendations(n_recommendations=5)
-        elif "top" in msg_lower or "best" in msg_lower or "highest" in msg_lower:
-            recommendations = engine.get_top_rated_recommendations(n_recommendations=5)
+        elif "year" in entities:
+            recommendations = engine.get_movies_by_year(entities["year"])
+        elif entities.get("sort") == "rating":
+            recommendations = engine.get_top_rated_recommendations(5)
+        elif entities.get("sort") == "trending":
+            recommendations = engine.get_trending_recommendations(5)
         else:
-            recommendations = engine.get_trending_recommendations(n_recommendations=5)
+            recommendations = engine.get_trending_recommendations(5)
 
         if recommendations:
             return {
@@ -90,7 +77,9 @@ def get_movie_recommendations(msg: str) -> dict:
                 "movies": [format_movie_card(movie) for movie in recommendations],
             }
 
-        return text_response("Sorry, I couldn't find movie recommendations. Try asking about a specific genre!")
+        return text_response(
+            "Sorry, I couldn't find movie recommendations. Try asking about a specific genre!"
+        )
 
     except Exception as e:
         print(f"Error in get_movie_recommendations: {e}")
