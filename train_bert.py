@@ -41,7 +41,8 @@ train_texts, val_texts, train_labels, val_labels = train_test_split(
 # Tokenization
 # ========================
 # tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
+MODEL_NAME = "distilbert-base-uncased"
+tokenizer = DistilBertTokenizer.from_pretrained(MODEL_NAME)
 
 train_encodings = tokenizer(train_texts, truncation=True, padding=True)
 val_encodings = tokenizer(val_texts, truncation=True, padding=True)
@@ -88,7 +89,7 @@ val_dataset = IntentDataset(val_encodings, val_labels)
 #         print("Trainable:", name)
 
 model = DistilBertForSequenceClassification.from_pretrained(
-    "distilbert-base-uncased",
+    MODEL_NAME,
     num_labels=len(tags)
 )
 # Train all layers
@@ -139,6 +140,12 @@ tokenizer.save_pretrained("intent_model")
 # Save mappings
 import pickle
 with open("intent_model/meta.pkl", "wb") as f:
-    pickle.dump({"tag2id": tag2id, "id2tag": id2tag}, f)
+    pickle.dump({
+        "strategy": "multiclass",
+        "model_name": MODEL_NAME,
+        "threshold": 0.5,
+        "tag2id": tag2id,
+        "id2tag": id2tag,
+    }, f)
 
 print("Training complete")

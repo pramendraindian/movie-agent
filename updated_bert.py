@@ -105,8 +105,11 @@ train_s1, val_s1, train_s2, val_s2, train_labels, val_labels = train_test_split(
 # Tokenizer
 # ==================================================
 
+MODEL_NAME = "bert-base-uncased"
+MAX_LENGTH = 64
+
 tokenizer = BertTokenizer.from_pretrained(
-    "bert-base-uncased"
+    MODEL_NAME
 )
 
 train_encodings = tokenizer(
@@ -114,7 +117,7 @@ train_encodings = tokenizer(
     train_s2,
     truncation=True,
     padding="max_length",
-    max_length=64
+    max_length=MAX_LENGTH
 )
 
 val_encodings = tokenizer(
@@ -122,7 +125,7 @@ val_encodings = tokenizer(
     val_s2,
     truncation=True,
     padding="max_length",
-    max_length=64
+    max_length=MAX_LENGTH
 )
 
 # Metrics
@@ -178,7 +181,7 @@ val_dataset = IntentPairDataset(
 # ==================================================
 
 model = BertForSequenceClassification.from_pretrained(
-    "bert-base-uncased",
+    MODEL_NAME,
     num_labels=2
 )
 
@@ -231,7 +234,11 @@ tokenizer.save_pretrained("intent_model")
 with open("intent_model/meta.pkl", "wb") as f:
     pickle.dump(
         {
-            "intent_descriptions": INTENT_DESCRIPTIONS
+            "strategy": "sentence_pair",
+            "intent_descriptions": INTENT_DESCRIPTIONS,
+            "model_name": MODEL_NAME,
+            "max_length": MAX_LENGTH,
+            "threshold": 0.65,
         },
         f
     )

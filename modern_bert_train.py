@@ -281,9 +281,11 @@ with open(f"{SAVE_PATH}/meta.pkl", "wb") as f:
 
     pickle.dump(
         {
+            "strategy": "sentence_pair",
             "intent_descriptions": INTENT_DESCRIPTIONS,
             "model_name": MODEL_NAME,
-            "max_length": MAX_LENGTH
+            "max_length": MAX_LENGTH,
+            "threshold": 0.65,
         },
         f
     )
