@@ -1,0 +1,3 @@
+from app.models.multiclass_intent_classifier import MulticlassIntentClassifier
+
+BertIntentClassifier = MulticlassIntentClassifier

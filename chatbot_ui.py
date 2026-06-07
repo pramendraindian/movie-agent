@@ -1,274 +1,499 @@
-import streamlit as st
+from base64 import b64encode
+from html import escape
+from pathlib import Path
+
 import requests
+import streamlit as st
+import streamlit.components.v1 as components
 
-# ── Page config ──────────────────────────────────────────────────────────────
-st.set_page_config(
-    page_title="ChatBot",
-    page_icon="💬",
-    layout="centered",
-)
 
-# ── Custom CSS ────────────────────────────────────────────────────────────────
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap');
+DEFAULT_API_URL = "http://localhost:8000/chat"
+CSS_FILE = Path(__file__).with_name("chatbot_ui.css")
+FILM_REEL_IMAGE = Path(__file__).parent / "assets" / "film_reel.svg"
+CHAT_EMPTY_IMAGE = Path(__file__).parent / "assets" / "chat_empty.svg"
+POSTER_URLS = [
+    "https://image.tmdb.org/t/p/w342/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+    "https://image.tmdb.org/t/p/w342/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "https://image.tmdb.org/t/p/w342/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "https://image.tmdb.org/t/p/w342/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+    "https://image.tmdb.org/t/p/w342/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+    "https://image.tmdb.org/t/p/w342/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+    "https://image.tmdb.org/t/p/w342/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "https://image.tmdb.org/t/p/w342/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+]
+PROMPT_SUGGESTIONS = [
+    ("Relaxing", "relaxing movies"),
+    ("Trending", "trending movies"),
+    ("90 min", "90 min movies"),
+]
 
-/* ── Root palette ── */
-:root {
-    --bg:        #0e0f13;
-    --surface:   #16181f;
-    --border:    #2a2d38;
-    --accent:    #6ee7b7;       /* mint green */
-    --accent2:   #38bdf8;       /* sky blue  */
-    --txt:       #e8eaf0;
-    --txt-muted: #6b7280;
-    --user-bg:   #1e3a2f;
-    --bot-bg:    #1a1c24;
-    --radius:    14px;
-    --font-body: 'DM Sans', sans-serif;
-    --font-head: 'DM Serif Display', serif;
-}
 
-html, body, [data-testid="stAppViewContainer"] {
-    background: var(--bg) !important;
-    font-family: var(--font-body);
-    color: var(--txt);
-}
+def configure_page() -> None:
+    st.set_page_config(
+        page_title="ChatBot",
+        page_icon=":speech_balloon:",
+        layout="centered",
+    )
 
-/* hide Streamlit chrome */
-#MainMenu, header, footer { display: none !important; }
-[data-testid="stDecoration"] { display: none !important; }
 
-/* ── App wrapper ── */
-[data-testid="stAppViewContainer"] > .main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 7rem;
-}
+def load_css() -> None:
+    if not CSS_FILE.exists():
+        st.warning(f"Missing stylesheet: {CSS_FILE.name}")
+        return
 
-/* ── Header ── */
-.chat-header {
-    text-align: center;
-    padding: 2.5rem 0 1.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-}
-.chat-header h1 {
-    font-family: var(--font-head);
-    font-size: 2.4rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0;
-    letter-spacing: -0.5px;
-}
-.chat-header p {
-    color: var(--txt-muted);
-    font-size: 0.9rem;
-    margin: 0.4rem 0 0;
-}
+    css = CSS_FILE.read_text(encoding="utf-8")
+    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
-/* ── Chat bubbles ── */
-.bubble-row {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    margin-bottom: 1.1rem;
-    animation: fadeUp 0.25s ease both;
-}
-.bubble-row.user  { flex-direction: row-reverse; }
 
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+def render_dashboard_header() -> None:
+    image_src = image_to_data_uri(FILM_REEL_IMAGE)
 
-.avatar {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-}
-.avatar.bot  { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #0e0f13; }
-.avatar.user { background: var(--border); }
+    st.markdown(
+        f"""
+        <section class="dashboard-hero">
+            <img src="{image_src}" alt="Film reel" />
+            <div>
+                <h1>MoodFlix Movie Recommender</h1>
+                <p>Discover films by mood, trending picks, available time, and your watch preferences.</p>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
 
-.bubble {
-    max-width: 72%;
-    padding: 0.75rem 1.1rem;
-    border-radius: var(--radius);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    word-break: break-word;
-    position: relative;
-}
-.bubble.bot {
-    background: var(--bot-bg);
-    border: 1px solid var(--border);
-    border-bottom-left-radius: 4px;
-    color: var(--txt);
-}
-.bubble.user {
-    background: var(--user-bg);
-    border: 1px solid #2a4a3a;
-    border-bottom-right-radius: 4px;
-    color: var(--accent);
-}
 
-/* ── Typing indicator ── */
-.typing { display: flex; gap: 5px; align-items: center; padding: 4px 0; }
-.typing span {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    animation: blink 1.2s infinite ease-in-out;
-}
-.typing span:nth-child(2) { animation-delay: 0.2s; }
-.typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes blink {
-    0%,80%,100% { opacity: 0.2; transform: scale(0.8); }
-    40%         { opacity: 1;   transform: scale(1); }
-}
+def render_movie_marquee() -> None:
+    poster_items = "".join(
+        f'<img src="{poster_url}" alt="Movie poster" loading="lazy" />'
+        for poster_url in POSTER_URLS
+    )
 
-/* ── Input bar ── */
-[data-testid="stChatInput"] {
-    position: fixed !important;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: min(760px, 100%);
-    background: var(--surface) !important;
-    border-top: 1px solid var(--border) !important;
-    padding: 0.75rem 1.5rem 1rem !important;
-    z-index: 999;
-}
-[data-testid="stChatInput"] textarea {
-    background: var(--bg) !important;
-    color: var(--txt) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 10px !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.95rem !important;
-}
-[data-testid="stChatInput"] textarea:focus {
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 2px rgba(110,231,183,0.15) !important;
-}
-[data-testid="stChatInputSubmitButton"] svg { color: var(--accent) !important; }
+    st.markdown(
+        f"""
+        <section class="poster-marquee poster-marquee-top" aria-hidden="true">
+            <div class="poster-track">{poster_items}{poster_items}</div>
+        </section>
+        <section class="poster-marquee poster-marquee-bottom" aria-hidden="true">
+            <div class="poster-track reverse">{poster_items}{poster_items}</div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
 
-/* ── Empty state ── */
-.empty-state {
-    text-align: center;
-    padding: 4rem 0;
-    color: var(--txt-muted);
-}
-.empty-state .icon { font-size: 3rem; margin-bottom: 0.75rem; }
-.empty-state p { font-size: 0.95rem; }
 
-/* ── Error bubble ── */
-.bubble.error {
-    background: #2d1515;
-    border-color: #5c2828;
-    color: #f87171;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ── Config ────────────────────────────────────────────────────────────────────
-API_URL = "http://localhost:8000/chat"   # ← change if your server runs elsewhere
-
-# ── Session state ─────────────────────────────────────────────────────────────
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# ── Header ────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="chat-header">
-  <h1>💬 ChatBot</h1>
-  <p>Powered by your FastAPI intent service</p>
-</div>
-""", unsafe_allow_html=True)
-
-# ── Render history ─────────────────────────────────────────────────────────────
-def render_bubble(role: str, text: str, is_error: bool = False):
-    if role == "user":
-        st.markdown(f"""
-        <div class="bubble-row user">
-            <div class="avatar user">🧑</div>
-            <div class="bubble user">{text}</div>
-        </div>""", unsafe_allow_html=True)
+def image_to_data_uri(path: Path) -> str:
+    if path.exists():
+        image_data = b64encode(path.read_bytes()).decode("ascii")
+        image_src = f"data:image/svg+xml;base64,{image_data}"
     else:
-        bubble_cls = "error" if is_error else "bot"
-        st.markdown(f"""
+        image_src = ""
+
+    return image_src
+
+
+def initialize_state() -> None:
+    st.session_state.setdefault("messages", [])
+    st.session_state.setdefault("api_url", DEFAULT_API_URL)
+    st.session_state.setdefault("chat_open", True)
+    st.session_state.setdefault("chat_prompt", "")
+    st.session_state.setdefault("pending_prompt", "")
+
+
+def open_chat() -> None:
+    st.session_state.chat_open = True
+
+
+def minimize_chat() -> None:
+    st.session_state.chat_open = False
+
+
+def render_launcher() -> None:
+    st.markdown(
+        """
+        <style>
+        [data-testid="stAppViewContainer"] > .main,
+        [data-testid="stMain"] {
+            width: auto;
+            height: auto;
+            right: 0;
+            bottom: 0;
+            overflow: visible;
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        [data-testid="stAppViewContainer"] > .main .block-container,
+        [data-testid="stMainBlockContainer"] {
+            padding: 0;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.button(
+        "Chat",
+        key="open_chat",
+        help="Open chat",
+        on_click=open_chat,
+    )
+
+
+def render_header() -> None:
+    title_column, action_column = st.columns([1, 0.16], vertical_alignment="center")
+
+    with title_column:
+        st.markdown(
+            """
+            <div class="chat-header">
+                <div class="chat-avatar">AI</div>
+                <div>
+                    <h1>ChatBot</h1>
+                    <p>Movie recommendation assistant</p>
+                </div>
+                <div class="chat-header-strip" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with action_column:
+        st.button(
+            "-",
+            key="minimize_chat",
+            help="Minimize chat",
+            on_click=minimize_chat,
+        )
+
+
+def format_bot_response(text: str) -> str:
+    if "|" not in text:
+        return escape(text).replace("\n", "<br>")
+
+    parts = [part.strip() for part in text.split("|") if part.strip()]
+    if not parts:
+        return escape(text).replace("\n", "<br>")
+
+    intro = ""
+    first_suggestion = parts[0]
+    if ":" in first_suggestion:
+        intro, first_suggestion = first_suggestion.split(":", 1)
+        intro = intro.strip()
+        first_suggestion = first_suggestion.strip()
+
+    suggestions = [first_suggestion, *parts[1:]]
+    suggestions = [suggestion for suggestion in suggestions if suggestion]
+    if len(suggestions) < 2:
+        return escape(text).replace("\n", "<br>")
+
+    intro_html = f"<p>{escape(intro)}:</p>" if intro else ""
+    suggestions_html = "".join(
+        f"<li>{escape(suggestion)}</li>" for suggestion in suggestions
+    )
+    return f'{intro_html}<ul class="suggestion-list">{suggestions_html}</ul>'
+
+
+def render_bubble(role: str, text: str, is_error: bool = False) -> None:
+    if role == "user":
+        row_class = "user"
+        avatar_class = "user"
+        bubble_class = "user"
+        avatar = "You"
+        bubble_content = escape(text).replace("\n", "<br>")
+    else:
+        row_class = "bot"
+        avatar_class = "bot"
+        bubble_class = "error" if is_error else "bot"
+        avatar = "AI"
+        bubble_content = escape(text).replace("\n", "<br>") if is_error else format_bot_response(text)
+
+    st.markdown(
+        f"""
+        <div class="bubble-row {row_class}">
+            <div class="avatar {avatar_class}">{avatar}</div>
+            <div class="bubble {bubble_class}">{bubble_content}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_movie_cards(movies: list[dict]) -> None:
+    if not movies:
+        return
+
+    for movie in movies:
+        title = escape(str(movie.get("title", "Unknown")))
+        rating = movie.get("rating", 0)
+        runtime = escape(str(movie.get("runtime", "")))
+        year = escape(str(movie.get("release_year", "")))
+        poster_url = escape(str(movie.get("poster_url", "")))
+
+        meta_parts = []
+        try:
+            rating_value = float(rating)
+        except (TypeError, ValueError):
+            rating_value = 0
+        if rating_value:
+            meta_parts.append(f"{rating_value:.1f}/10")
+        if runtime:
+            meta_parts.append(runtime)
+        if year:
+            meta_parts.append(year)
+        meta = escape(" | ".join(meta_parts))
+
+        poster_html = (
+            f'<img src="{poster_url}" alt="{title} poster" loading="lazy" />'
+            if poster_url
+            else '<div class="movie-poster-placeholder">No poster</div>'
+        )
+
+        card_html = f"""
+        <article class="movie-card">
+            <div class="movie-poster">{poster_html}</div>
+            <div class="movie-card-body">
+                <h3>{title}</h3>
+                <p>{meta}</p>
+            </div>
+        </article>
+        """
+
+        st.markdown(
+            f'<div class="movie-card-item">{card_html}</div>',
+            unsafe_allow_html=True,
+        )
+
+
+def render_typing_indicator() -> None:
+    st.markdown(
+        """
         <div class="bubble-row bot">
-            <div class="avatar bot">✦</div>
-            <div class="bubble {bubble_cls}">{text}</div>
-        </div>""", unsafe_allow_html=True)
+            <div class="avatar bot">AI</div>
+            <div class="bubble bot typing-bubble" aria-label="Waiting for response">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-if not st.session_state.messages:
-    st.markdown("""
-    <div class="empty-state">
-        <div class="icon">✦</div>
-        <p>Send a message to get started.</p>
-    </div>""", unsafe_allow_html=True)
-else:
-    for msg in st.session_state.messages:
-        render_bubble(msg["role"], msg["content"], msg.get("error", False))
 
-# ── Input & API call ──────────────────────────────────────────────────────────
-if prompt := st.chat_input("Type your message…"):
-    # Validate: skip blank messages
+def send_suggestion(prompt: str) -> None:
+    handle_prompt(prompt)
+
+
+def render_empty_state() -> None:
+    image_src = image_to_data_uri(CHAT_EMPTY_IMAGE)
+    st.markdown(
+        f"""
+        <div class="empty-state">
+            <img src="{image_src}" alt="" />
+            <h2>Find the right movie faster</h2>
+            <p>Try a mood, genre, trend, or how much time you have.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    chip_columns = st.columns(len(PROMPT_SUGGESTIONS))
+    for index, (label, prompt) in enumerate(PROMPT_SUGGESTIONS):
+        with chip_columns[index]:
+            st.button(
+                label,
+                key=f"prompt_chip_{index}",
+                help=f"Ask for {label.lower()} movie recommendations",
+                use_container_width=True,
+                on_click=send_suggestion,
+                args=(prompt,),
+            )
+
+
+def render_messages() -> None:
+    with st.container(height=360, border=False):
+        if not st.session_state.messages:
+            render_empty_state()
+        else:
+            for message in st.session_state.messages:
+                render_bubble(
+                    message["role"],
+                    message["content"],
+                    message.get("error", False),
+                )
+                if message["role"] == "assistant" and not message.get("error", False):
+                    render_movie_cards(message.get("movies", []))
+
+        if st.session_state.pending_prompt:
+            render_typing_indicator()
+
+
+def get_bot_reply(prompt: str) -> tuple[str, bool, list[dict]]:
+    try:
+        response = requests.post(
+            st.session_state.api_url,
+            json={"message": prompt},
+            timeout=15,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        if "movies" not in payload:
+            legacy_response = payload.get("response", "No response received.")
+            return (
+                legacy_response
+                + "\n\nBackend returned the old response format without movie/poster data. Restart the FastAPI backend.",
+                False,
+                [],
+            )
+        return (
+            payload.get("response", "No response received."),
+            False,
+            payload.get("movies", []),
+        )
+    except requests.exceptions.ConnectionError:
+        return "Could not connect to the backend. Is your FastAPI server running?", True, []
+    except requests.exceptions.Timeout:
+        return "The server took too long to respond. Please try again.", True, []
+    except requests.exceptions.HTTPError as exc:
+        return f"Server error: {exc.response.status_code}", True, []
+    except Exception as exc:
+        return f"Unexpected error: {exc}", True, []
+
+
+def handle_prompt(prompt: str) -> None:
+    if not prompt:
+        return
+
     prompt = prompt.strip()
     if not prompt:
-        st.stop()
+        return
 
-    # Show user bubble
     st.session_state.messages.append({"role": "user", "content": prompt})
-    render_bubble("user", prompt)
+    st.session_state.pending_prompt = prompt
 
-    # Typing indicator while waiting
-    typing_placeholder = st.empty()
-    typing_placeholder.markdown("""
-    <div class="bubble-row bot">
-        <div class="avatar bot">✦</div>
-        <div class="bubble bot">
-            <div class="typing"><span></span><span></span><span></span></div>
-        </div>
-    </div>""", unsafe_allow_html=True)
 
-    # Call FastAPI backend
-    try:
-        resp = requests.post(API_URL, json={"message": prompt}, timeout=15)
-        resp.raise_for_status()
-        bot_reply = resp.json().get("response", "No response received.")
-        is_error  = False
-    except requests.exceptions.ConnectionError:
-        bot_reply = "⚠️ Could not connect to the backend. Is your FastAPI server running?"
-        is_error  = True
-    except requests.exceptions.Timeout:
-        bot_reply = "⚠️ The server took too long to respond. Please try again."
-        is_error  = True
-    except requests.exceptions.HTTPError as e:
-        bot_reply = f"⚠️ Server error: {e.response.status_code}"
-        is_error  = True
-    except Exception as e:
-        bot_reply = f"⚠️ Unexpected error: {str(e)}"
-        is_error  = True
+def submit_prompt() -> None:
+    prompt = st.session_state.get("chat_prompt", "")
+    handle_prompt(prompt)
+    st.session_state.chat_prompt = ""
 
-    typing_placeholder.empty()
-    st.session_state.messages.append({"role": "assistant", "content": bot_reply, "error": is_error})
-    render_bubble("assistant", bot_reply, is_error)
 
-# ── Sidebar: controls ─────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("### ⚙️ Settings")
-    api_url_input = st.text_input("API Endpoint", value=API_URL)
-    if api_url_input != API_URL:
-        API_URL = api_url_input
+def resolve_pending_prompt() -> None:
+    prompt = st.session_state.pending_prompt
+    if not prompt:
+        return
 
-    st.markdown("---")
-    if st.button("🗑️ Clear conversation"):
-        st.session_state.messages = []
-        st.rerun()
+    bot_reply, is_error, movies = get_bot_reply(prompt)
+    st.session_state.messages.append(
+        {
+            "role": "assistant",
+            "content": bot_reply,
+            "error": is_error,
+            "movies": movies,
+        }
+    )
+    st.session_state.pending_prompt = ""
+    st.rerun()
 
-    st.markdown("---")
-    st.markdown(f"**Messages:** {len(st.session_state.messages)}")
-    st.markdown("**Status:** 🟢 Ready")
+
+def render_composer() -> None:
+    is_waiting = bool(st.session_state.pending_prompt)
+    input_column, button_column = st.columns([1, 0.18], vertical_alignment="bottom")
+
+    with input_column:
+        st.text_area(
+            "Message",
+            key="chat_prompt",
+            label_visibility="collapsed",
+            placeholder="Waiting for reply..." if is_waiting else "Type your message...",
+            disabled=is_waiting,
+            height=68,
+        )
+
+    with button_column:
+        st.button(
+            "Send",
+            key="send_message",
+            use_container_width=True,
+            disabled=is_waiting,
+            on_click=submit_prompt,
+        )
+
+
+def enable_enter_to_send() -> None:
+    components.html(
+        """
+        <script>
+        const parentDoc = window.parent.document;
+
+        function bindEnterToSend() {
+            const textarea = parentDoc.querySelector('.st-key-chat_prompt textarea');
+            const sendButton = parentDoc.querySelector('.st-key-send_message button');
+
+            if (!textarea || !sendButton || textarea.dataset.enterToSendBound === 'true') {
+                return;
+            }
+
+            textarea.dataset.enterToSendBound = 'true';
+            textarea.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter' || event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) {
+                    return;
+                }
+
+                event.preventDefault();
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                textarea.dispatchEvent(new Event('change', { bubbles: true }));
+                setTimeout(() => sendButton.click(), 0);
+            });
+        }
+
+        bindEnterToSend();
+        const observer = new MutationObserver(bindEnterToSend);
+        observer.observe(parentDoc.body, { childList: true, subtree: true });
+        </script>
+        """,
+        height=0,
+        width=0,
+    )
+
+
+def render_sidebar() -> None:
+    with st.sidebar:
+        st.markdown("### Settings")
+        st.session_state.api_url = st.text_input(
+            "API Endpoint",
+            value=st.session_state.api_url,
+        )
+
+        st.markdown("---")
+        if st.button("Clear conversation"):
+            st.session_state.messages = []
+            st.session_state.pending_prompt = ""
+            st.rerun()
+
+        st.markdown("---")
+        st.markdown(f"**Messages:** {len(st.session_state.messages)}")
+        status = "Open" if st.session_state.chat_open else "Minimized"
+        st.markdown(f"**Status:** {status}")
+
+
+def main() -> None:
+    configure_page()
+    load_css()
+    initialize_state()
+    render_sidebar()
+    render_movie_marquee()
+    render_dashboard_header()
+
+    if not st.session_state.chat_open:
+        render_launcher()
+        return
+
+    render_header()
+    render_messages()
+    render_composer()
+    enable_enter_to_send()
+    resolve_pending_prompt()
+
+
+if __name__ == "__main__":
+    main()

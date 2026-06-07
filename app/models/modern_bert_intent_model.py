@@ -1,0 +1,3 @@
+from app.models.sentence_pair_intent_classifier import SentencePairIntentClassifier
+
+ModernBertIntentClassifier = SentencePairIntentClassifier

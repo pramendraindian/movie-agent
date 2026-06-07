@@ -1,43 +1,69 @@
-import json, torch, random
-from app.models.intent_model import NeuralNet
-from app.utils.nlp_utils import tokenize, bag_of_words
+import json
+import os
+import random
+from dotenv import load_dotenv
+
+from app.models.intent_classifier_factory import load_intent_classifier, resolve_model_path
 from app.services.llm_service import llm_fallback
 from app.services.recommendation_service import recommend
+
+load_dotenv()
+INTENT_MODEL_PATH = os.getenv("INTENT_MODEL_PATH","" )
+resolve_model_path()
+classifier = load_intent_classifier(INTENT_MODEL_PATH)
+CONF_THRESHOLD = float(os.getenv("INTENT_THRESHOLD", classifier.threshold))
 
 with open("app/data/intents.json") as f:
     intents = json.load(f)
 
-data = torch.load("data.pth")
 
-model = NeuralNet(data["input_size"], data["hidden_size"], data["output_size"])
-model.load_state_dict(data["model_state"])
-model.eval()
+def text_response(text: str) -> dict:
+    return {"response": text, "movies": []}
 
-all_words = data["all_words"]
-tags = data["tags"]
+
+def is_movie_query(msg: str) -> bool:
+    msg_lower = msg.lower()
+    movie_keywords = [
+        "movie",
+        "movies",
+        "film",
+        "films",
+        "watch",
+        "trending",
+        "popular",
+        "relaxing",
+        "feel good",
+    ]
+    has_duration = any(
+        unit in msg_lower for unit in [" min", " mins", " minute", " minutes"]
+    )
+    return has_duration or any(keyword in msg_lower for keyword in movie_keywords)
+
 
 def classify(msg):
-    X = bag_of_words(tokenize(msg), all_words)
-    X = torch.from_numpy(X).float()
-    output = model(X)
-    probs = torch.softmax(output, dim=0)
-    conf, pred = torch.max(probs, dim=0)
-    return tags[pred.item()], conf.item()
+    return classifier.predict(msg)
+
 
 def get_intent_response(msg):
     tag, conf = classify(msg)
-    print(f"Predicted intent: {tag} with confidence {conf:.2f}")
-    if conf < 0.7:
-        return llm_fallback(msg)
+    print(
+        f"[{classifier.strategy}:{INTENT_MODEL_PATH}] intent={tag} conf={conf:.2f}"
+    )
 
-    if tag.startswith("movie"):
+    if is_movie_query(msg):
         return recommend("movie", msg)
 
-    if tag.startswith("learning"):
+    if conf < CONF_THRESHOLD or tag == "fallback":
+        return text_response(llm_fallback(msg))
+
+    if tag.startswith("movie") or tag == "movie_recommendation":
+        return recommend("movie", msg)
+
+    if tag.startswith("learning") or tag == "learning_recommendation":
         return recommend("learning", msg)
 
     for intent in intents["intents"]:
         if intent["tag"] == tag:
-            return random.choice(intent["responses"])
+            return text_response(random.choice(intent.get("responses", ["Okay."])))
 
-    return "Sorry, I didn’t understand."
+    return text_response("Sorry, I didn't understand.")
