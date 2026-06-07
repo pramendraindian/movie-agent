@@ -60,6 +60,8 @@ for epoch in range(200):
         optimizer.step()
 
 torch.save({
+    "strategy": "bow",
+    "threshold": 0.7,
     "model_state": model.state_dict(),
     "input_size": len(X_train[0]),
     "hidden_size": 8,

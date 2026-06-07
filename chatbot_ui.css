@@ -404,6 +404,15 @@ footer,
     animation: fadeUp 0.25s ease both;
 }
 
+.movie-card-item {
+    margin: 0 44px 10px;
+    animation: fadeUp 0.25s ease both;
+}
+
+.movie-card-item:last-child {
+    margin-bottom: 1.1rem;
+}
+
 .movie-card {
     display: grid;
     grid-template-columns: 58px minmax(0, 1fr);
@@ -654,9 +663,13 @@ footer,
         bottom: 16px;
     }
 
-    .movie-card-grid {
-        grid-template-columns: 1fr;
+    .movie-card-grid,
+    .movie-card-item {
         margin-right: 12px;
         margin-left: 44px;
+    }
+
+    .movie-card-grid {
+        grid-template-columns: 1fr;
     }
 }

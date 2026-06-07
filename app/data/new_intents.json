@@ -1,0 +1,121 @@
+{
+  "intents": [
+
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hi", "hello", "hey", "good morning", "good evening",
+        "hey there", "hi bot"
+      ],
+      "responses": [
+        "Hello! I can recommend movies based on genre, mood, or language. What are you looking for?"
+      ]
+    },
+
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye", "goodbye", "see you", "talk later"
+      ],
+      "responses": [
+        "Goodbye! Enjoy your movie time 🎬"
+      ]
+    },
+
+    {
+      "tag": "movie_recommendation",
+      "patterns": [
+
+        "what should i watch tonight",
+        "recommend something good",
+        "i want a movie suggestion",
+        "can you suggest a movie",
+        "show me some good films",
+        "i am bored suggest something",
+        "need something entertaining",
+        "give me a fun movie",
+        "i want something funny to watch",
+        "i need a relaxing movie",
+        "movies for weekend",
+        "movies for family night",
+        "something exciting to watch",
+        "i want a mind blowing movie",
+        "movies that make you think",
+        "movies to watch with friends",
+        "good movies for tonight",
+        "any good thrillers",
+        "something emotional to watch",
+        "feel good movie suggestions",
+        "movies like inception",
+        "movies similar to interstellar",
+        "dark psychological thrillers",
+        "light hearted comedy movies",
+        "popular hollywood films",
+        "best sci fi movies",
+        "good horror movies",
+        "top action films",
+        "award winning movies",
+        "critically acclaimed films",
+        "must watch movies",
+        "movies everyone loves",
+        "best movies ever",
+        "latest trending films",
+        "classic movies to watch",
+        "movies from 2022",
+        "funny hindi movies",
+        "english action films",
+        "family friendly movies",
+        "kids animated movies",
+        "something scary",
+        "movies with plot twists",
+        "best suspense movies",
+        "romantic movies for date night",
+        "movies to cheer me up",
+        "sad emotional films",
+        "best imdb movies",
+        "highly rated films",
+        "good netflix style movies",
+        "movies for relaxing"
+      ]
+    },
+    {
+      "tag": "learning_recommendation",
+      "patterns": [
+        "best programming courses",
+        "how to learn python",
+        "recommend data science resources",
+        "web development tutorials"
+      ]
+    },
+
+    {
+      "tag": "fallback",
+      "patterns": [
+        "asdfgh",
+        "random text",
+        "blah blah",
+        "I don't understand",
+        "qwerty",
+        "nothing",
+        "whatever",
+        "hmmmmm",
+        "can you cook food",
+        "what is the weather",
+        "tell me about politics",
+        "abracadabra",
+        "who won the match",
+        "book me a cab",
+        "open youtube",
+        "play songs",
+        "do my homework",
+        "random nonsense",
+        "somerandommessage",
+        "unrelated query"
+      ],
+      "responses": [
+        "Sorry, I didn't get that. You can ask for movie recommendations by genre or mood."
+      ]
+    }
+
+  ]
+}

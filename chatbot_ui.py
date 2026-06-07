@@ -224,14 +224,12 @@ def render_movie_cards(movies: list[dict]) -> None:
     if not movies:
         return
 
-    cards_html = []
     for movie in movies:
         title = escape(str(movie.get("title", "Unknown")))
         rating = movie.get("rating", 0)
         runtime = escape(str(movie.get("runtime", "")))
         year = escape(str(movie.get("release_year", "")))
         poster_url = escape(str(movie.get("poster_url", "")))
-        poster_path = escape(str(movie.get("poster_path", "")))
 
         meta_parts = []
         try:
@@ -252,22 +250,20 @@ def render_movie_cards(movies: list[dict]) -> None:
             else '<div class="movie-poster-placeholder">No poster</div>'
         )
 
-        cards_html.append(
-            f"""
-            <article class="movie-card">
-                <div class="movie-poster">{poster_html}</div>
-                <div class="movie-card-body">
-                    <h3>{title}</h3>
-                    <p>{meta}</p>
-                </div>
-            </article>
-            """
-        )
+        card_html = f"""
+        <article class="movie-card">
+            <div class="movie-poster">{poster_html}</div>
+            <div class="movie-card-body">
+                <h3>{title}</h3>
+                <p>{meta}</p>
+            </div>
+        </article>
+        """
 
-    st.markdown(
-        f'<div class="movie-card-grid">{"".join(cards_html)}</div>',
-        unsafe_allow_html=True,
-    )
+        st.markdown(
+            f'<div class="movie-card-item">{card_html}</div>',
+            unsafe_allow_html=True,
+        )
 
 
 def render_typing_indicator() -> None:

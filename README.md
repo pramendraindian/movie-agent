@@ -9,6 +9,37 @@ Dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k
         # Command3
             python -m pip install -r requirements.txt
 
+------------------ Moni's Models--
+
+Demo script for presentation
+# Baseline
+python train.py
+INTENT_MODEL_PATH=data.pth uvicorn app.main:app --port 8001
+
+# DistilBERT multiclass
+python train_bert.py
+INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
+
+# ModernBERT sentence-pair (best approach)
+python modern_bert_train.py
+INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
+
+Note: we have to train before you start the chat for inference since models are diff. Also you can run on port 8000, for me my project was running on that so I had to use a diff one
+
+# Same test for all
+curl -X POST http://127.0.0.1:8001/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"recommend a comedy movie"}'
+
+
+
+
+----------------------------------------------
+
+
+
+
+
     python download_nltk.py
     python train.py
     python app/main.py
@@ -91,5 +122,14 @@ This project follows a **Hybrid AI Architecture** combining:
 - External APIs (Recommendations)
 
 <p align="center">
-  <img src="diagrams/ChatbotProjectArchitecture.png" width="900"/>
+  <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
+
+
+## Contributors
+
+- [Moni](https://github.com/emonhaz)
+- [Pramendra Singh](https://github.com/your-github-username)
+- [Sajith](https://github.com/sajithkn-alt)
+- [Shashank](https://github.com/shashank160790)
+
