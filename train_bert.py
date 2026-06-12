@@ -32,6 +32,10 @@ id2tag = {i: tag for tag, i in tag2id.items()}
 
 labels = [tag2id[label] for label in labels]
 
+print(f"Unique tags: {tags}")
+print(f"Labels: {labels}")
+print(f"Texts: {texts}")
+
 # train/test split
 train_texts, val_texts, train_labels, val_labels = train_test_split(
     texts, labels, test_size=0.2, random_state=42
