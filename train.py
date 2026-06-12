@@ -50,6 +50,7 @@ criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 for epoch in range(200):
+    epoch_loss = 0
     for i in range(len(X_train)):
         x = torch.from_numpy(X_train[i]).float()
         y = torch.tensor(y_train[i])
@@ -58,6 +59,25 @@ for epoch in range(200):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        epoch_loss += loss.item()
+    
+    avg_loss = epoch_loss / len(X_train)
+    if (epoch + 1) % 20 == 0:
+        print(f"Epoch [{epoch + 1}/200], Loss: {avg_loss:.4f}")
+
+# Calculate accuracy on training data
+with torch.no_grad():
+    correct = 0
+    total = 0
+    for i in range(len(X_train)):
+        x = torch.from_numpy(X_train[i]).float()
+        out = model(x)
+        _, predicted = torch.max(out.data, 0)
+        total += 1
+        correct += (predicted == y_train[i]).item()
+    
+    accuracy = 100 * correct / total
+    print(f"\nModel Accuracy on Training Data: {accuracy:.2f}%")
 
 torch.save({
     "strategy": "bow",
