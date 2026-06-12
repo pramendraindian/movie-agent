@@ -125,6 +125,9 @@ This project follows a **Hybrid AI Architecture** combining:
   <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
 
+<p align="center">
+  <img src="diagrams/CineGenie.png" width="900"/>
+</p>
 
 ## Contributors
 
