@@ -2,6 +2,7 @@
 # 🚀 Movie Recommendation Chatbot
 
 Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
+
 ### Project Setup Steps
 ```bash
         # Command1
@@ -91,12 +92,6 @@ This project follows a **Hybrid AI Architecture** combining:
   <img src="diagrams/CineGenie.png" width="900"/>
 </p>
 
-## Contributors
-
-- [Moni](https://github.com/emonhaz)
-- [Pramendra Singh](https://github.com/your-github-username)
-- [Sajith](https://github.com/sajithkn-alt)
-- [Shashank](https://github.com/shashank160790)
 
 
 ----------------------------------------------------------------------------------------------------------------------
@@ -629,3 +624,15 @@ streamlit run chatbot_ui.py
 ```
 
 Now you have a complete movie recommendation chatbot leveraging trained intent classification + TMDB data! 🎬
+
+
+
+
+## Contributors
+- [Moni](https://github.com/emonhaz)
+- [Pramendra Singh](https://github.com/your-github-username)
+- [Sajith](https://github.com/sajithkn-alt)
+- [Shashank](https://github.com/shashank160790)
+- [Sujit]((https://github.com/sujitsandilya/movie-agent))
+- [Shashank](https://github.com/shashank160790)
+
