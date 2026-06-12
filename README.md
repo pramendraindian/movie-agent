@@ -633,6 +633,6 @@ Now you have a complete movie recommendation chatbot leveraging trained intent c
 - [Pramendra Singh](https://github.com/your-github-username)
 - [Sajith](https://github.com/sajithkn-alt)
 - [Shashank](https://github.com/shashank160790)
-- [Sujit]((https://github.com/sujitsandilya/movie-agent))
+- [Sujit](https://github.com/sujitsandilya/movie-agent)
 - [Shashank](https://github.com/shashank160790)
 
