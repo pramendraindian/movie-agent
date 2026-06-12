@@ -11,15 +11,15 @@ Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-datase
 
 ------------------ Moni's Models--
 
-## 1. Model Training Steps
+# 1. Model Training Steps
 We can train the model any of the below  approaches.
-# Approach 1 - Uses BERT model as base model
+## Approach 1 - Uses BERT model as base model
         python train_bert.py
-# Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
+## Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
         python train.py
 
 
-## 2. Host the saved model with FAST API
+# 2. Host the saved model with FAST API
       python app/main.py
 
 Endpoint: http://127.0.0.1:8000/chat
