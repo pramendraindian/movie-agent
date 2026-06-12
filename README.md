@@ -16,14 +16,14 @@ Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-datase
              download_nltk.py
 ```
 
-# Step 1. Model Training
+## Step 1. Model Training
 We can train the model any of the below  approaches.
-## Approach 1 - Uses BERT model as base model
+### Approach 1 - Uses BERT model as base model
         python train_bert.py
-## Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
+### Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
         python train.py
 
-# Step 2. Host the saved model with FAST API
+## Step 2. Host the saved model with FAST API
       python app/main.py
 Endpoint: http://127.0.0.1:8000/chat
 
@@ -61,7 +61,7 @@ Response:-
     ]
 }
 ```
-# Step 2. Host the User Interface - Chatbot()
+## Step 3. Host the User Interface - Chatbot
 ```bash
 streamlit run chatbot_ui.py
 ```
