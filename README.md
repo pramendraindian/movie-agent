@@ -107,6 +107,45 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run chatbot_ui.py
 ```
 
+## Local-First RAG (Feature Flagged)
+
+RAG is off by default and does not change current behavior until enabled.
+
+### 1) Install / update deps
+
+```bat
+scripts\setup.bat
+```
+
+### 2) Build local vector index
+
+```bat
+scripts\build_rag_index.bat
+```
+
+### 3) Start Ollama and pull a local model
+
+```bat
+ollama pull phi3:mini
+```
+
+### 4) Enable fallback-only RAG
+
+```bat
+set RAG_ENABLED=true
+set RAG_FALLBACK_ENABLED=true
+set RAG_MOVIE_AUGMENTATION_ENABLED=false
+set RAG_LLM_MODEL=phi3:mini
+scripts\run_app.bat
+```
+
+### 5) Optional semantic augmentation for movie recommendations
+
+```bat
+set RAG_MOVIE_AUGMENTATION_ENABLED=true
+scripts\run_app.bat
+```
+
 ## API
 
 POST /chat

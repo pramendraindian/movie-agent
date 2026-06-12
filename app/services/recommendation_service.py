@@ -1,6 +1,8 @@
 import re
 
 from app.services.entity_extractor import extract_entities
+from app.services.rag_config import get_rag_config
+from app.services.retrieval_service import get_retrieval_service
 from app.utils.movie_utils import get_recommendation_engine
 
 
@@ -71,6 +73,8 @@ def get_movie_recommendations(msg: str) -> dict:
         else:
             recommendations = engine.get_trending_recommendations(5)
 
+        recommendations = _augment_with_retrieved_movies(msg, recommendations)
+
         if recommendations:
             return {
                 "response": "I recommend these movies:",
@@ -84,6 +88,45 @@ def get_movie_recommendations(msg: str) -> dict:
     except Exception as e:
         print(f"Error in get_movie_recommendations: {e}")
         return text_response("I had trouble fetching recommendations. Please try again!")
+
+
+def _augment_with_retrieved_movies(msg: str, base_recommendations: list) -> list:
+    config = get_rag_config()
+    if not (config.enabled and config.movie_augmentation_enabled):
+        return base_recommendations
+
+    try:
+        retrieved = get_retrieval_service().retrieve(msg, top_k=config.retrieval_top_k)
+        if not retrieved:
+            return base_recommendations
+
+        merged = list(base_recommendations)
+        seen_titles = {str(movie.get("title", "")).strip().lower() for movie in merged}
+
+        for item in retrieved:
+            title_key = item.title.strip().lower()
+            if not title_key or title_key in seen_titles:
+                continue
+            merged.append(
+                {
+                    "title": item.title,
+                    "rating": item.rating,
+                    "runtime": item.runtime,
+                    "release_year": item.release_year,
+                    "genres": item.genres,
+                    "overview": item.overview,
+                    "poster_path": item.poster_path,
+                }
+            )
+            seen_titles.add(title_key)
+            if len(merged) >= 5:
+                break
+
+        print("[RAG:movie-augmentation] merged retrieval with TF-IDF results")
+        return merged[:5]
+    except Exception as exc:
+        print(f"[RAG:movie-augmentation] fallback due to error: {exc}")
+        return base_recommendations
 
 
 def format_movie_summary(movie: dict) -> str:

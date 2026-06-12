@@ -13,4 +13,6 @@ scikit-learn
 streamlit
 sentencepiece
 dotenv
+chromadb
+sentence-transformers
 
