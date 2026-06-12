@@ -11,7 +11,7 @@ Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-datase
 
 
 
-# 1. Model Training Steps
+# Step 1. Model Training
 We can train the model any of the below  approaches.
 ## Approach 1 - Uses BERT model as base model
         python train_bert.py
@@ -19,10 +19,11 @@ We can train the model any of the below  approaches.
         python train.py
 
 
-# 2. Host the saved model with FAST API
+# Step 2. Host the saved model with FAST API
       python app/main.py
 
 Endpoint: http://127.0.0.1:8000/chat
+
 POST Body Payload:-
 ```json
 {
@@ -53,41 +54,17 @@ Response:-
             "overview": "There is a special hair salon to satisfy from head to toe! Hyejin, who worked at a hairdresser who is famous as a decadent place. At first, I was reluctant to be served by my body, but from the moment",
             "poster_path": "/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg",
             "poster_url": "https://image.tmdb.org/t/p/w342/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg"
-        },
-        {
-            "title": "Glorious Days",
-            "rating": 8.1,
-            "runtime": "119 min",
-            "release_year": "2019",
-            "genres": "Drama, Comedy, Romance",
-            "overview": "Because of an incident when they were in high school, members of the Bebas Gang were forced to separate. 23 years later, one of them is seriously ill and hopes to meet again one last time.",
-            "poster_path": "/4MyNGRvjOWZD7oU0y8Dso1NrJR5.jpg",
-            "poster_url": "https://image.tmdb.org/t/p/w342/4MyNGRvjOWZD7oU0y8Dso1NrJR5.jpg"
-        },
-        {
-            "title": "The Submission of Emma Marx",
-            "rating": 8.0,
-            "runtime": "117 min",
-            "release_year": "2013",
-            "genres": "Drama, Romance",
-            "overview": "The film centers around Emma Marx (Penny Pax), a woman who is unable to embrace modern-day romantic ideals. Feeling more and more like an outsider as she watches her sister, Nadia (Riley Reid) get swe",
-            "poster_path": "/gElF6eeIt1aPTv8cy4Tqie2BpGk.jpg",
-            "poster_url": "https://image.tmdb.org/t/p/w342/gElF6eeIt1aPTv8cy4Tqie2BpGk.jpg"
-        },
-        {
-            "title": "The Heart's Movements",
-            "rating": 8.0,
-            "runtime": "80 min",
-            "release_year": "2000",
-            "genres": "Romance, Drama",
-            "overview": "Based on a series of episodes aimed as ensuring the director to exorcise the defects, fears and phobias circulating about the world of ordinary love. There are 35 stories developed at an average of tw",
-            "poster_path": "/jJkMDABqIfEWgoIYPUIjRxCh3bE.jpg",
-            "poster_url": "https://image.tmdb.org/t/p/w342/jJkMDABqIfEWgoIYPUIjRxCh3bE.jpg"
         }
     ]
 }
 ```
-
+# Step 2. Host the User Interface - Chatbot()
+```bash
+streamlit run chatbot_ui.py
+```
+<p align="center">
+  <img src="diagrams/CineGenie.png" width="900"/>
+</p>
 
 
 ----------------------------------------------
