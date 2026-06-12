@@ -1,15 +1,19 @@
 
 # 🚀 Movie Recommendation Chatbot
+
 Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
+### Project Setup Steps
+```bash
         # Command1
             python -m venv .venv
         # Command2
         README.md
-            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& C:\IITD AIML\Projects\Movie Agent\movie-agent\.venv\Scripts\Activate.ps1)
+            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& ..\.venv\Scripts\Activate.ps1)
         # Command3
             python -m pip install -r requirements.txt
-
-
+         # Command4 - to setup nltk dependencies
+             download_nltk.py
+```
 
 # Step 1. Model Training
 We can train the model any of the below  approaches.
@@ -18,10 +22,8 @@ We can train the model any of the below  approaches.
 ## Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
         python train.py
 
-
 # Step 2. Host the saved model with FAST API
       python app/main.py
-
 Endpoint: http://127.0.0.1:8000/chat
 
 POST Body Payload:-
@@ -69,95 +71,22 @@ streamlit run chatbot_ui.py
 
 ----------------------------------------------
 
-
-
-
-
-    python download_nltk.py
-    python train.py
-    python app/main.py
-    Postman -
-    Endpoint: http://127.0.0.1:8000/chat
-    Try with below payloads
-    Payload:
-        {
-            "message":"Hi"
-        }
-    -------------------
-        Response:
-        {
-            "response": "Hello! Ask me for movies or learning."
-        }
-____________________________________
-    Payload: 
-    {
-    "message":"adventure movie"
-    }
-    -----------------------------
-    Response
-    {
-        "response": "Try: Inception, Avengers, Interstellar"
-    }
-
 ## Features
 - FastAPI backend
-- Intent classification (PyTorch)
-- LLM fallback (OpenAI)
-- Movie recommendations (TMDB API)
+- Intent classification (PyTorch/BERT)
+- LLM fallback 
+- Movie recommendations (TMDB Dataset)
 - Modular architecture
-- Ready for Docker deployment
 
-## Run
-### Windows quick start
-
-Run setup once:
-
-```bat
-scripts\setup.bat
-```
-
-Then start the backend and Streamlit UI anytime with:
-
-```bat
-scripts\run_app.bat
-```
-
-You can also run them separately:
-
-```bat
-scripts\run_api.bat
-scripts\run_ui.bat
-```
-
-### Manual commands
-
-```bash
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe download_nltk.py
-.\.venv\Scripts\python.exe train.py
-.\.venv\Scripts\python.exe app/main.py
-.\.venv\Scripts\python.exe -m streamlit run chatbot_ui.py
-```
-
-## API
-
-POST /chat
-
-```json
-{"message": "Suggest a comedy movie"}
-```
 ## 🏗️ Architecture Overview
 
 This project follows a **Hybrid AI Architecture** combining:
 - Intent Classification (ML)
 - LLM Fallback
-- External APIs (Recommendations)
-
+- Self hosted APIs (Recommendations)
 <p align="center">
   <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
-
 <p align="center">
   <img src="diagrams/CineGenie.png" width="900"/>
 </p>
@@ -170,6 +99,11 @@ This project follows a **Hybrid AI Architecture** combining:
 - [Shashank](https://github.com/shashank160790)
 
 
+----------------------------------------------------------------------------------------------------------------------
+
+# Workflow Description
+
+----------------------------------------------------------------------------------------------------------------------
 
 
 ## 🎬 Approach: 1 
@@ -286,7 +220,11 @@ Your `intents.json` has these main categories:
 
 
 
-## 🎬 Approach: 2 
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+# 🎬 Approach: 2 
 
 I'll analyze the end-to-end project flow starting from `train.py` by examining the key files and understanding how they connect.Now let me get the API routes file to complete the flow:Now I have all the necessary information to provide a comprehensive end-to-end project flow explanation.
 
