@@ -1,142 +1,104 @@
 
 # 🚀 Movie Recommendation Chatbot
-Dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
+
+Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
+
+### Project Setup Steps
+```bash
         # Command1
             python -m venv .venv
         # Command2
         README.md
-            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& C:\IITD AIML\Projects\Movie Agent\movie-agent\.venv\Scripts\Activate.ps1)
+            (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& ..\.venv\Scripts\Activate.ps1)
         # Command3
             python -m pip install -r requirements.txt
+         # Command4 - to setup nltk dependencies
+             download_nltk.py
+```
 
------------------- Moni's Models--
+## Step 1. Model Training
+We can train the model any of the below  approaches.
+### Approach 1 - Uses BERT model as base model
+        python train_bert.py
+### Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
+        python train.py
 
-Demo script for presentation
-# Baseline
-python train.py
-INTENT_MODEL_PATH=data.pth uvicorn app.main:app --port 8001
+## Step 2. Host the saved model with FAST API
+      python app/main.py
+Endpoint: http://127.0.0.1:8000/chat
 
-# DistilBERT multiclass
-python train_bert.py
-INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
-
-# ModernBERT sentence-pair (best approach)
-python modern_bert_train.py
-INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
-
-Note: we have to train before you start the chat for inference since models are diff. Also you can run on port 8000, for me my project was running on that so I had to use a diff one
-
-# Same test for all
-curl -X POST http://127.0.0.1:8001/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message":"recommend a comedy movie"}'
-
-
+POST Body Payload:-
+```json
+{
+    "message":"can you please suggest romantic movie"
+}
+```
+Response:-
+```json
+{
+    "response": "I recommend these movies:",
+    "movies": [
+        {
+            "title": "Bad Girls Behind Bars",
+            "rating": 8.4,
+            "runtime": "81 min",
+            "release_year": "2016",
+            "genres": "Drama, Romance",
+            "overview": "Wise-cracking news reporter Georgina goes undercover in a women's prison to get the story of a lifetime. But she discovers she's stranded behind bars after her outside contact suddenly dies, now, the ",
+            "poster_path": "/y1uRkUce2k3MP0xh2t793DDKiiF.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/y1uRkUce2k3MP0xh2t793DDKiiF.jpg"
+        },
+        {
+            "title": "Beauty Salon: Special Service 2",
+            "rating": 8.375,
+            "runtime": "90 min",
+            "release_year": "2018",
+            "genres": "Romance",
+            "overview": "There is a special hair salon to satisfy from head to toe! Hyejin, who worked at a hairdresser who is famous as a decadent place. At first, I was reluctant to be served by my body, but from the moment",
+            "poster_path": "/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg"
+        }
+    ]
+}
+```
+## Step 3. Host the User Interface - Chatbot
+```bash
+streamlit run chatbot_ui.py
+```
+<p align="center">
+  <img src="diagrams/CineGenie.png" width="900"/>
+</p>
 
 
 ----------------------------------------------
 
-
-
-
-
-    python download_nltk.py
-    python train.py
-    python app/main.py
-    Postman -
-    Endpoint: http://127.0.0.1:8000/chat
-    Try with below payloads
-    Payload:
-        {
-            "message":"Hi"
-        }
-    -------------------
-        Response:
-        {
-            "response": "Hello! Ask me for movies or learning."
-        }
-____________________________________
-    Payload: 
-    {
-    "message":"adventure movie"
-    }
-    -----------------------------
-    Response
-    {
-        "response": "Try: Inception, Avengers, Interstellar"
-    }
-
 ## Features
 - FastAPI backend
-- Intent classification (PyTorch)
-- LLM fallback (OpenAI)
-- Movie recommendations (TMDB API)
+- Intent classification (PyTorch/BERT)
+- LLM fallback 
+- Movie recommendations (TMDB Dataset)
 - Modular architecture
-- Ready for Docker deployment
 
-## Run
-### Windows quick start
-
-Run setup once:
-
-```bat
-scripts\setup.bat
-```
-
-Then start the backend and Streamlit UI anytime with:
-
-```bat
-scripts\run_app.bat
-```
-
-You can also run them separately:
-
-```bat
-scripts\run_api.bat
-scripts\run_ui.bat
-```
-
-### Manual commands
-
-```bash
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe download_nltk.py
-.\.venv\Scripts\python.exe train.py
-.\.venv\Scripts\python.exe app/main.py
-.\.venv\Scripts\python.exe -m streamlit run chatbot_ui.py
-```
-
-## API
-
-POST /chat
-
-```json
-{"message": "Suggest a comedy movie"}
-```
 ## 🏗️ Architecture Overview
 
 This project follows a **Hybrid AI Architecture** combining:
 - Intent Classification (ML)
 - LLM Fallback
-- External APIs (Recommendations)
-
+- Self hosted APIs (Recommendations)
 <p align="center">
   <img src="diagrams/ArchDiagram.png" width="900"/>
 </p>
-
 <p align="center">
   <img src="diagrams/CineGenie.png" width="900"/>
 </p>
 
-## Contributors
-
-- [Moni](https://github.com/emonhaz)
-- [Pramendra Singh](https://github.com/your-github-username)
-- [Sajith](https://github.com/sajithkn-alt)
-- [Shashank](https://github.com/shashank160790)
 
 
+----------------------------------------------------------------------------------------------------------------------
+
+# Workflow Description
+
+----------------------------------------------------------------------------------------------------------------------
 
 
 ## 🎬 Approach: 1 
@@ -253,7 +215,11 @@ Your `intents.json` has these main categories:
 
 
 
-## 🎬 Approach: 2 
+----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------
+
+# 🎬 Approach: 2 
 
 I'll analyze the end-to-end project flow starting from `train.py` by examining the key files and understanding how they connect.Now let me get the API routes file to complete the flow:Now I have all the necessary information to provide a comprehensive end-to-end project flow explanation.
 
@@ -658,3 +624,16 @@ streamlit run chatbot_ui.py
 ```
 
 Now you have a complete movie recommendation chatbot leveraging trained intent classification + TMDB data! 🎬
+
+
+
+
+## Contributors
+- [Moni](https://github.com/emonhaz)
+- [Pramendra Singh](https://github.com/your-github-username)
+- [Sajith](https://github.com/sajithkn-alt)
+- [Shashank](https://github.com/shashank160790)
+- [Sujit](https://github.com/sujitsandilya/movie-agent)
+- [Subhashis Mishra ](https://github.com/techsubhasis82)
+
+
