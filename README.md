@@ -1,6 +1,6 @@
 
 # 🚀 Movie Recommendation Chatbot
-Dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
+Source of Dataset : https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies/data
         # Command1
             python -m venv .venv
         # Command2
@@ -11,26 +11,82 @@ Dataset: https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k
 
 ------------------ Moni's Models--
 
-Demo script for presentation
-# Baseline
-python train.py
-INTENT_MODEL_PATH=data.pth uvicorn app.main:app --port 8001
+## 1. Model Training Steps
+We can train the model any of the below  approaches.
+# Approach 1 - Uses BERT model as base model
+        python train_bert.py
+# Approach 2 - Uses Bag Of Words/ NLTK (Alternate Approach)
+        python train.py
 
-# DistilBERT multiclass
-python train_bert.py
-INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
 
-# ModernBERT sentence-pair (best approach)
-python modern_bert_train.py
-INTENT_MODEL_PATH=intent_model uvicorn app.main:app --port 8001
+## 2. Host the saved model with FAST API
+      python app/main.py
 
-Note: we have to train before you start the chat for inference since models are diff. Also you can run on port 8000, for me my project was running on that so I had to use a diff one
-
-# Same test for all
-curl -X POST http://127.0.0.1:8001/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message":"recommend a comedy movie"}'
-
+Endpoint: http://127.0.0.1:8000/chat
+POST Body Payload:-
+```json
+{
+    "message":"can you please suggest romantic movie"
+}
+```
+Response:-
+```json
+{
+    "response": "I recommend these movies:",
+    "movies": [
+        {
+            "title": "Bad Girls Behind Bars",
+            "rating": 8.4,
+            "runtime": "81 min",
+            "release_year": "2016",
+            "genres": "Drama, Romance",
+            "overview": "Wise-cracking news reporter Georgina goes undercover in a women's prison to get the story of a lifetime. But she discovers she's stranded behind bars after her outside contact suddenly dies, now, the ",
+            "poster_path": "/y1uRkUce2k3MP0xh2t793DDKiiF.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/y1uRkUce2k3MP0xh2t793DDKiiF.jpg"
+        },
+        {
+            "title": "Beauty Salon: Special Service 2",
+            "rating": 8.375,
+            "runtime": "90 min",
+            "release_year": "2018",
+            "genres": "Romance",
+            "overview": "There is a special hair salon to satisfy from head to toe! Hyejin, who worked at a hairdresser who is famous as a decadent place. At first, I was reluctant to be served by my body, but from the moment",
+            "poster_path": "/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/5qFTCvx1h1CsHqbAuqo68J8GSub.jpg"
+        },
+        {
+            "title": "Glorious Days",
+            "rating": 8.1,
+            "runtime": "119 min",
+            "release_year": "2019",
+            "genres": "Drama, Comedy, Romance",
+            "overview": "Because of an incident when they were in high school, members of the Bebas Gang were forced to separate. 23 years later, one of them is seriously ill and hopes to meet again one last time.",
+            "poster_path": "/4MyNGRvjOWZD7oU0y8Dso1NrJR5.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/4MyNGRvjOWZD7oU0y8Dso1NrJR5.jpg"
+        },
+        {
+            "title": "The Submission of Emma Marx",
+            "rating": 8.0,
+            "runtime": "117 min",
+            "release_year": "2013",
+            "genres": "Drama, Romance",
+            "overview": "The film centers around Emma Marx (Penny Pax), a woman who is unable to embrace modern-day romantic ideals. Feeling more and more like an outsider as she watches her sister, Nadia (Riley Reid) get swe",
+            "poster_path": "/gElF6eeIt1aPTv8cy4Tqie2BpGk.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/gElF6eeIt1aPTv8cy4Tqie2BpGk.jpg"
+        },
+        {
+            "title": "The Heart's Movements",
+            "rating": 8.0,
+            "runtime": "80 min",
+            "release_year": "2000",
+            "genres": "Romance, Drama",
+            "overview": "Based on a series of episodes aimed as ensuring the director to exorcise the defects, fears and phobias circulating about the world of ordinary love. There are 35 stories developed at an average of tw",
+            "poster_path": "/jJkMDABqIfEWgoIYPUIjRxCh3bE.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/w342/jJkMDABqIfEWgoIYPUIjRxCh3bE.jpg"
+        }
+    ]
+}
+```
 
 
 
