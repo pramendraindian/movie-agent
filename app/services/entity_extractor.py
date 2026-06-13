@@ -45,11 +45,19 @@ GENRES = {
 
 
 MOODS = {
-    "feel_good": ["feel good", "uplifting", "happy"],
+    "feel_good": ["feel good", "uplifting", "happy", "relaxing", "light"],
+    "sad": ["sad", "down", "depressed", "lonely", "heartbroken"],
     "dark": ["dark", "intense", "serious"],
     "mind_bending": ["mind bending", "psychological", "twist"],
-    "family": ["family", "kids", "children"]
+    "family": ["family", "kids", "children"],
 }
+
+SIMILAR_PATTERNS = [
+    r"movies?\s+like\s+(.+)",
+    r"similar\s+to\s+(.+)",
+    r"more\s+like\s+(.+)",
+    r"same\s+as\s+(.+)",
+]
 
 LANGUAGES = {
     "hindi": ["hindi", "bollywood"],
@@ -107,5 +115,20 @@ def extract_entities(text: str):
         if any(k in text for k in keywords):
             entities["language"] = lang
             break
+
+    for pattern in SIMILAR_PATTERNS:
+        match = re.search(pattern, text)
+        if match:
+            title = match.group(1).strip(" .?!")
+            for suffix in (" please", " movie", " movies", " film", " films"):
+                if title.endswith(suffix):
+                    title = title[: -len(suffix)]
+            if title:
+                entities["similar_to"] = title.strip()
+            break
+
+    follow_up_phrases = ("more like this", "show me more", "another one", "anything else")
+    if any(p in text for p in follow_up_phrases):
+        entities["follow_up"] = True
 
     return entities

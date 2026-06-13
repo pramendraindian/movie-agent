@@ -13,4 +13,7 @@ scikit-learn
 streamlit
 sentencepiece
 dotenv
+sentence-transformers
+openai
+Pillow
 

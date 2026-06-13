@@ -275,22 +275,35 @@ class RecommendationEngine:
         """Get recommendations by genre"""
         if self.movies_df is None or len(self.movies_df) == 0:
             return []
-        
+
+        genre_aliases = {
+            "sci-fi": ["sci-fi", "science fiction", "sci fi"],
+            "action": ["action"],
+            "comedy": ["comedy"],
+            "drama": ["drama"],
+            "horror": ["horror"],
+            "romance": ["romance"],
+            "adventure": ["adventure"],
+            "animation": ["animation"],
+            "fantasy": ["fantasy"],
+            "thriller": ["thriller"],
+        }
+        search_terms = genre_aliases.get(genre.lower(), [genre])
+
         try:
-            # Filter by genre (case-insensitive)
-            filtered = self.movies_df[
-                self.movies_df['genres'].str.contains(genre, case=False, na=False)
-            ]
-            
+            mask = pd.Series(False, index=self.movies_df.index)
+            for term in search_terms:
+                mask |= self.movies_df["genres"].str.contains(term, case=False, na=False)
+            filtered = self.movies_df[mask]
+
             if filtered.empty:
                 return []
-            
-            # Sort by rating/popularity
+
             if sort_by == "rating":
-                sorted_movies = filtered.nlargest(n_recommendations, 'rating')
-            else:  # popularity
-                sorted_movies = filtered.nlargest(n_recommendations, 'popularity')
-            
+                sorted_movies = filtered.nlargest(n_recommendations, "rating")
+            else:
+                sorted_movies = filtered.nlargest(n_recommendations, "popularity")
+
             return self._format_recommendations(sorted_movies.index)
         except Exception as e:
             print(f"Error in genre-based recommendation: {e}")
@@ -367,6 +380,30 @@ class RecommendationEngine:
             print(f"Error in top-rated recommendation: {e}")
             return []
     
+    def get_movies_by_year(
+        self,
+        year: int,
+        n_recommendations: int = 5,
+    ) -> List[Dict]:
+        """Get highly rated movies released in a given year."""
+        if self.movies_df is None or len(self.movies_df) == 0:
+            return []
+
+        try:
+            if "release_date" not in self.movies_df.columns:
+                return []
+
+            dates = pd.to_datetime(self.movies_df["release_date"], errors="coerce")
+            filtered = self.movies_df[dates.dt.year == year]
+            if filtered.empty:
+                return []
+
+            sorted_movies = filtered.nlargest(n_recommendations, "rating")
+            return self._format_recommendations(sorted_movies.index)
+        except Exception as e:
+            print(f"Error in year-based recommendation: {e}")
+            return []
+
     def search_movies(
         self, 
         query: str, 

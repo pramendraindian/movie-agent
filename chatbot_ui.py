@@ -5,9 +5,11 @@ from pathlib import Path
 import requests
 import streamlit as st
 import streamlit.components.v1 as components
+import uuid
 
 
 DEFAULT_API_URL = "http://localhost:8000/chat"
+SESSION_API_URL = "http://localhost:8000/session"
 CSS_FILE = Path(__file__).with_name("chatbot_ui.css")
 FILM_REEL_IMAGE = Path(__file__).parent / "assets" / "film_reel.svg"
 CHAT_EMPTY_IMAGE = Path(__file__).parent / "assets" / "chat_empty.svg"
@@ -94,6 +96,10 @@ def image_to_data_uri(path: Path) -> str:
 def initialize_state() -> None:
     st.session_state.setdefault("messages", [])
     st.session_state.setdefault("api_url", DEFAULT_API_URL)
+    st.session_state.setdefault("session_id", str(uuid.uuid4()))
+    st.session_state.setdefault("pending_image", None)
+    st.session_state.setdefault("processed_upload_key", "")
+    st.session_state.setdefault("clear_chat_prompt", False)
     st.session_state.setdefault("chat_open", True)
     st.session_state.setdefault("chat_prompt", "")
     st.session_state.setdefault("pending_prompt", "")
@@ -327,48 +333,61 @@ def render_messages() -> None:
             render_typing_indicator()
 
 
-def get_bot_reply(prompt: str) -> tuple[str, bool, list[dict]]:
+def get_bot_reply(prompt: str, image_base64: str | None = None) -> tuple[str, bool, list[dict], str]:
     try:
+        payload = {
+            "message": prompt,
+            "session_id": st.session_state.session_id,
+        }
+        if image_base64:
+            payload["image_base64"] = image_base64
+
         response = requests.post(
             st.session_state.api_url,
-            json={"message": prompt},
-            timeout=15,
+            json=payload,
+            timeout=180 if image_base64 else 30,
         )
         response.raise_for_status()
-        payload = response.json()
-        if "movies" not in payload:
-            legacy_response = payload.get("response", "No response received.")
+        data = response.json()
+        if "movies" not in data:
+            legacy_response = data.get("response", "No response received.")
             return (
                 legacy_response
                 + "\n\nBackend returned the old response format without movie/poster data. Restart the FastAPI backend.",
                 False,
                 [],
+                st.session_state.session_id,
             )
+        if data.get("session_id"):
+            st.session_state.session_id = data["session_id"]
         return (
-            payload.get("response", "No response received."),
+            data.get("response", "No response received."),
             False,
-            payload.get("movies", []),
+            data.get("movies", []),
+            st.session_state.session_id,
         )
     except requests.exceptions.ConnectionError:
-        return "Could not connect to the backend. Is your FastAPI server running?", True, []
+        return "Could not connect to the backend. Is your FastAPI server running?", True, [], st.session_state.session_id
     except requests.exceptions.Timeout:
-        return "The server took too long to respond. Please try again.", True, []
+        return "The server took too long to respond. Please try again.", True, [], st.session_state.session_id
     except requests.exceptions.HTTPError as exc:
-        return f"Server error: {exc.response.status_code}", True, []
+        return f"Server error: {exc.response.status_code}", True, [], st.session_state.session_id
     except Exception as exc:
-        return f"Unexpected error: {exc}", True, []
+        return f"Unexpected error: {exc}", True, [], st.session_state.session_id
 
 
-def handle_prompt(prompt: str) -> None:
-    if not prompt:
+def handle_prompt(prompt: str, image_base64: str | None = None) -> None:
+    if not prompt and not image_base64:
         return
 
-    prompt = prompt.strip()
-    if not prompt:
+    prompt = (prompt or "").strip()
+    if not prompt and not image_base64:
         return
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.session_state.pending_prompt = prompt
+    display = prompt or "[Uploaded movie poster]"
+    st.session_state.messages.append({"role": "user", "content": display})
+    st.session_state.pending_prompt = prompt or "What movie is this? Recommend similar films."
+    st.session_state.pending_image = image_base64
 
 
 def submit_prompt() -> None:
@@ -382,7 +401,8 @@ def resolve_pending_prompt() -> None:
     if not prompt:
         return
 
-    bot_reply, is_error, movies = get_bot_reply(prompt)
+    image = st.session_state.pending_image
+    bot_reply, is_error, movies, _ = get_bot_reply(prompt, image_base64=image)
     st.session_state.messages.append(
         {
             "role": "assistant",
@@ -392,10 +412,15 @@ def resolve_pending_prompt() -> None:
         }
     )
     st.session_state.pending_prompt = ""
+    st.session_state.pending_image = None
     st.rerun()
 
 
 def render_composer() -> None:
+    if st.session_state.get("clear_chat_prompt"):
+        st.session_state.chat_prompt = ""
+        st.session_state.clear_chat_prompt = False
+
     is_waiting = bool(st.session_state.pending_prompt)
     input_column, button_column = st.columns([1, 0.18], vertical_alignment="bottom")
 
@@ -408,6 +433,25 @@ def render_composer() -> None:
             disabled=is_waiting,
             height=68,
         )
+        uploaded = st.file_uploader(
+            "Upload a movie poster",
+            type=["jpg", "jpeg", "png", "webp"],
+            disabled=is_waiting,
+            key="poster_upload",
+            help="The agent uses CLIP vision to identify the film and recommend similar titles.",
+        )
+        if uploaded and not is_waiting:
+            upload_key = f"{uploaded.name}:{uploaded.size}"
+            if upload_key != st.session_state.processed_upload_key:
+                image_b64 = b64encode(uploaded.read()).decode("ascii")
+                prompt = (
+                    st.session_state.get("chat_prompt", "")
+                    or "What movie is this poster? Recommend similar films."
+                )
+                handle_prompt(prompt, image_base64=image_b64)
+                st.session_state.processed_upload_key = upload_key
+                st.session_state.clear_chat_prompt = True
+                st.rerun()
 
     with button_column:
         st.button(
@@ -466,11 +510,23 @@ def render_sidebar() -> None:
 
         st.markdown("---")
         if st.button("Clear conversation"):
+            try:
+                requests.delete(
+                    f"{SESSION_API_URL}/{st.session_state.session_id}",
+                    timeout=5,
+                )
+            except requests.RequestException:
+                pass
             st.session_state.messages = []
             st.session_state.pending_prompt = ""
+            st.session_state.pending_image = None
+            st.session_state.processed_upload_key = ""
+            st.session_state.clear_chat_prompt = True
+            st.session_state.session_id = str(uuid.uuid4())
             st.rerun()
 
         st.markdown("---")
+        st.markdown(f"**Session:** `{st.session_state.session_id[:8]}...`")
         st.markdown(f"**Messages:** {len(st.session_state.messages)}")
         status = "Open" if st.session_state.chat_open else "Minimized"
         st.markdown(f"**Status:** {status}")
