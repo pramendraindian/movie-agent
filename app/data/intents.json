@@ -1,360 +1,738 @@
 {
   "intents": [
-
     {
       "tag": "greeting",
       "patterns": [
-        "hi", "hello", "hey", "good morning", "good evening",
-        "hey there", "hi bot"
+        "hi", "hello", "hey", "good morning", "good evening", "hey there", "hi bot",
+        "greetings", "good day", "welcome", "hiya", "howdy", "good afternoon",
+        "what's up", "sup", "yo", "hello there", "hi friend", "good to see you",
+        "pleased to meet you", "nice to see you", "starting fresh", "new chat",
+        "let's begin", "let's start", "initialize", "activate", "wake up",
+        "are you there", "hello bot", "hey buddy", "hi mate", "greetings bot",
+        "salutations", "how do you do", "top of the morning", "cheerio", "konnichiwa",
+        "namaste", "aloha", "shalom", "ciao", "bonjour", "hola", "hallo", "merhaba"
       ],
       "responses": [
         "Hello! I can recommend movies based on genre, mood, or language. What are you looking for?"
       ]
     },
-
     {
       "tag": "goodbye",
       "patterns": [
-        "bye", "goodbye", "see you", "talk later"
+        "bye", "goodbye", "see you", "talk later", "farewell", "take care",
+        "see you later", "catch you soon", "bye bye", "until next time",
+        "goodbye for now", "adios", "cya", "later", "gotta go", "have to leave",
+        "ttyl", "peace", "so long", "ta ta", "cheerio", "toodles", "exit",
+        "quit", "close", "end chat", "goodbye bot", "bye friend", "goodbye friend",
+        "see you around", "see you later alligator", "in a while crocodile",
+        "signing off", "logging off", "goodnight", "sleep well", "catch you later",
+        "take it easy", "until we meet again", "farewell buddy", "au revoir",
+        "auf wiedersehen", "arrivederci", "sayonara", "hasta la vista"
       ],
       "responses": [
         "Goodbye! Enjoy your movie time 🎬"
       ]
     },
-
     {
       "tag": "movie_general",
       "patterns": [
-        "recommend me a movie",
-        "suggest a movie",
-        "what should I watch",
-        "any good movies",
-        "movie suggestion",
-        "I want to watch something",
-        "give me movie ideas",
-        "what movie should I see",
-        "help me find a movie",
-        "pick a movie for me",
-        "can you recommend something",
-        "movie recommendations please",
-        "what are some good films",
-        "I need a movie to watch",
-        "what's a good movie tonight",
-        "show me some movies",
-        "suggest me something interesting",
-        "I am bored suggest movie",
-        "any interesting movies",
-        "recommend films",
-        "movies worth watching",
-        "what are the best movies",
-        "movie options",
-        "top movie recommendations",
-        "what can I watch now",
-        "I need entertainment",
-        "good cinema suggestions",
-        "best films to watch",
-        "help me choose a movie",
-        "suggest popular movies"
+        "recommend me a movie", "suggest a movie", "what should I watch", "any good movies",
+        "movie suggestion", "I want to watch something", "give me movie ideas", "what movie should I see",
+        "help me find a movie", "pick a movie for me", "can you recommend something",
+        "movie recommendations please", "what are some good films", "I need a movie to watch",
+        "what's a good movie tonight", "show me some movies", "suggest me something interesting",
+        "I am bored suggest movie", "any interesting movies", "recommend films", "movies worth watching",
+        "what are the best movies", "movie options", "top movie recommendations", "what can I watch now",
+        "I need entertainment", "good cinema suggestions", "best films to watch", "help me choose a movie",
+        "suggest popular movies", "I'm looking for a film", "any suggestions", "what do you recommend",
+        "film ideas", "cinema recommendations", "suggest something to watch", "what movie do you recommend",
+        "I want a movie", "find me a movie", "movie please", "recommend me something", "what should I see",
+        "best movies ever", "blockbuster movies", "must watch movies", "essential movies", "classic movies",
+        "modern movies", "contemporary films", "recent releases", "new movies", "upcoming movies",
+        "all time best movies", "greatest movies", "award winning movies", "acclaimed films",
+        "critically acclaimed movies", "fan favorite movies", "cult classic movies", "hidden gems",
+        "underrated movies", "overrated movies", "sleeper films", "indie movies", "mainstream movies",
+        "B movies", "straight to video", "direct to streaming", "limited release", "wide release",
+        "based on book", "based on true story", "biographical film", "historical film", "period piece",
+        "contemporary setting", "modern day film", "time travel movie", "alternate reality",
+        "found footage", "mockumentary", "anthology film", "episodic", "series", "installment",
+        "franchise", "standalone", "prequel", "sequel", "spinoff", "reboot", "remake",
+        "homage", "parody", "satire", "mockery", "tribute", "adaptation", "original script"
       ],
       "responses": [
-        "Sure! Tell me a genre (action, comedy, horror) or your mood."
+        "Sure! Tell me a genre (action, comedy, horror, drama, thriller, etc.) or your mood!"
       ]
     },
-
     {
       "tag": "movie_action",
       "patterns": [
-        "action movie",
-        "suggest action films",
-        "I want action movie",
-        "any good action movies",
-        "recommend action movies",
-        "show me action movies",
-        "give me action film suggestions",
-        "best action movies",
-        "movies with fighting",
-        "movies with explosions",
-        "fast paced movies",
-        "hero fighting movies",
-        "movies like john wick",
-        "adventure and action movies",
-        "intense action films",
-        "thrilling action movies",
-        "high energy movies",
-        "action packed movies",
-        "movies with car chases",
-        "gun fight movies",
-        "martial arts movies",
-        "superhero action movies",
-        "I feel like watching action",
-        "can you suggest an action movie",
-        "something exciting to watch",
-        "movies with lots of action scenes",
-        "best hollywood action movies",
-        "action thriller movies",
-        "recommend some blockbuster action films",
-        "movie with war and action",
-        "not comedy movie",
-        "anything except romance",
-        "no horror please"
+        "action movie", "suggest action films", "I want action movie", "any good action movies",
+        "recommend action movies", "show me action movies", "give me action film suggestions",
+        "best action movies", "movies with fighting", "movies with explosions", "fast paced movies",
+        "hero fighting movies", "movies like john wick", "adventure and action movies",
+        "intense action films", "thrilling action movies", "high energy movies", "action packed movies",
+        "movies with car chases", "gun fight movies", "martial arts movies", "superhero action movies",
+        "I feel like watching action", "can you suggest an action movie", "something exciting to watch",
+        "movies with lots of action scenes", "best hollywood action movies", "action thriller movies",
+        "recommend some blockbuster action films", "movie with war and action", "adrenaline rush movie",
+        "edge of seat movie", "suspenseful action", "combat movies", "military action", "war movies",
+        "heist movies", "spy movies", "espionage films", "secret agent movies", "james bond style",
+        "stealth action", "tactical action", "commando movies", "soldier films", "mercenary movies",
+        "bodyguard action", "protection movies", "chase movies", "escape movies", "prison break",
+        "bank robbery movies", "robbery movies", "crime action", "criminal action", "organized crime",
+        "mafia movies", "gangster movies", "cartel movies", "drug war movies", "street level action",
+        "gang movies", "turf war", "territorial disputes", "power struggle", "revenge action",
+        "vengeance movies", "vigilante action", "hero movies", "champion movies", "fighter movies",
+        "boxing movies", "wrestling movies", "sports action", "extreme sports", "adventure action",
+        "jungle action", "survival action", "apocalyptic action", "post apocalyptic", "dystopian action",
+        "dystopian war", "cyborg action", "robot action", "android movies", "AI action", "mecha",
+        "giant robots", "monster action", "creature action", "creature feature", "kaiju movies",
+        "giant monster", "demon movies", "supernatural action", "paranormal action", "ghost action",
+        "vampire action", "werewolf action", "zombie action", "undead action", "infected action"
       ],
       "responses": [
-        "Try: John Wick, Mad Max: Fury Road, Avengers: Endgame"
+        "Try: John Wick, Mad Max: Fury Road, Avengers: Endgame, Mission Impossible, Die Hard, Fast Five"
       ]
     },
-
     {
       "tag": "movie_comedy",
       "patterns": [
-        "comedy movie",
-        "suggest comedy films",
-        "I want comedy movie",
-        "funny movies",
-        "make me laugh movie",
-        "light hearted movies",
-        "movies to laugh at",
-        "best comedy movies",
-        "fun movies to watch",
-        "comedy drama movies",
-        "family comedy movies",
-        "feel good comedy movies",
-        "movies like hangover",
-        "silly movies",
-        "humorous films",
-        "comic movies",
-        "movies that are hilarious",
-        "something funny to watch",
-        "movies to cheer me up",
-        "easy going movies",
-        "weekend comedy movies",
-        "comedy movies for friends",
-        "good funny films",
-        "fun entertainment movies",
-        "movies with jokes",
-        "laugh out loud movies",
-        "best humorous movies",
-        "recommend a funny film",
-        "movies for stress relief",
-        "entertaining comedy movies"
+        "comedy movie", "suggest comedy films", "I want comedy movie", "funny movies", "make me laugh movie",
+        "light hearted movies", "movies to laugh at", "best comedy movies", "fun movies to watch",
+        "comedy drama movies", "family comedy movies", "feel good comedy movies", "movies like hangover",
+        "silly movies", "humorous films", "comic movies", "movies that are hilarious", "something funny to watch",
+        "movies to cheer me up", "easy going movies", "weekend comedy movies", "comedy movies for friends",
+        "good funny films", "fun entertainment movies", "movies with jokes", "laugh out loud movies",
+        "best humorous movies", "recommend a funny film", "movies for stress relief", "entertaining comedy movies",
+        "laugh track", "sitcom style", "buddy comedy", "romantic comedy", "rom com", "romantic humor",
+        "dark comedy", "black comedy", "satire comedy", "parody movies", "spoof movies", "absurd comedy",
+        "surreal comedy", "slapstick movies", "physical comedy", "verbal comedy", "witty movies",
+        "clever comedy", "intelligent humor", "smart comedy", "comedy for adults", "adult humor",
+        "crude humor", "potty humor", "bathroom humor", "sarcastic movies", "ironic humor", "observational comedy",
+        "standup comedy", "improv comedy", "sketch comedy", "musical comedy", "comedy musical",
+        "ensemble comedy", "group comedy", "workplace comedy", "office comedy", "school comedy",
+        "college comedy", "university comedy", "high school comedy", "teenage comedy", "kids comedy",
+        "family friendly", "children safe", "pg comedy", "silly fun", "goofy movies", "ridiculous humor",
+        "over the top", "exaggerated comedy", "farce", "melodrama comedy", "mockumentary comedy"
       ],
       "responses": [
-        "Try: The Hangover, Superbad, The Mask"
+        "Try: The Hangover, Superbad, The Mask, Dodgeball, Step Brothers, Anchor Man, Old School"
       ]
     },
-
     {
       "tag": "movie_horror",
       "patterns": [
-        "horror movie",
-        "suggest horror films",
-        "I want horror movie",
-        "scary movies",
-        "spooky films",
-        "ghost movies",
-        "haunted movies",
-        "paranormal movies",
-        "movies that are terrifying",
-        "best horror movies",
-        "jump scare movies",
-        "psychological horror films",
-        "dark horror movies",
-        "movies to watch at night",
-        "creepy movies",
-        "supernatural horror movies",
-        "horror thriller movies",
-        "demon movies",
-        "movies like conjuring",
-        "movies with ghosts",
-        "zombie movies",
-        "survival horror movies",
-        "scary thriller films",
-        "horror movies for adults",
-        "frightening movies",
-        "I want something scary",
-        "disturbing movies",
-        "movies with evil spirits",
-        "nightmare type movies",
-        "intense horror films"
+        "horror movie", "suggest horror films", "I want horror movie", "scary movies", "spooky films",
+        "ghost movies", "haunted movies", "paranormal movies", "movies that are terrifying", "best horror movies",
+        "jump scare movies", "psychological horror films", "dark horror movies", "movies to watch at night",
+        "creepy movies", "supernatural horror movies", "horror thriller movies", "demon movies",
+        "movies like conjuring", "movies with ghosts", "zombie movies", "survival horror movies",
+        "scary thriller films", "horror movies for adults", "frightening movies", "I want something scary",
+        "disturbing movies", "movies with evil spirits", "nightmare type movies", "intense horror films",
+        "slasher movies", "serial killer movies", "killer movies", "masked killer", "haunted house",
+        "possessed movies", "possessed people", "demonic possession", "exorcism movies", "evil entity",
+        "curse movies", "cursed objects", "voodoo movies", "witchcraft movies", "witch movies",
+        "vampire movies", "werewolf movies", "monster movies", "creature movies", "sea monsters",
+        "unknown creatures", "cryptids", "bigfoot", "alien movies", "alien invasion", "extraterrestrial",
+        "body snatchers", "alien abduction", "sci fi horror", "dystopian horror", "apocalyptic horror",
+        "end of world", "zombie apocalypse", "virus movies", "epidemic movies", "plague movies",
+        "pandemic movies", "infection movies", "disease movies", "contamination", "biological threat",
+        "mutation movies", "mutants", "mad scientists", "science gone wrong", "experiment horror",
+        "lab horror", "underground horror", "deep water", "underwater horror", "ocean horror",
+        "survival horror", "being hunted", "hunted for sport", "torture movies", "psychological horror",
+        "mind bending", "surreal horror", "dreamlike", "nightmarish", "twisted plots", "mindbenders",
+        "suspenseful horror", "atmospheric horror", "gothic horror", "period horror", "historical horror"
       ],
       "responses": [
-        "Try: The Conjuring, IT, Insidious"
+        "Try: The Conjuring, IT, Insidious, The Ring, Hereditary, The Shining, Sinister"
       ]
     },
-
     {
       "tag": "movie_romantic",
       "patterns": [
-        "romantic movie",
-        "suggest romantic films",
-        "I want romantic movie",
-        "love story movie",
-        "romance films"
+        "romantic movie", "suggest romantic films", "I want romantic movie", "love story movie",
+        "romance films", "romantic drama", "romance and drama", "couple movies", "relationship movies",
+        "love movies", "romance and comedy", "romantic comedy", "cute movies", "adorable movies",
+        "sweet movies", "touching love stories", "emotional romance", "passionate romance", "intense romance",
+        "epic romance", "timeless romance", "classic romance", "vintage romance", "period romance",
+        "historical romance", "contemporary romance", "modern love", "urban romance", "city love",
+        "countryside romance", "small town love", "long distance love", "forbidden love", "star crossed lovers",
+        "unrequited love", "mutual love", "love triangle", "love pentagon", "complicated romance",
+        "second chance love", "reunion romance", "childhood sweethearts", "friends to lovers",
+        "enemies to lovers", "workplace romance", "boss employee", "forbidden workplace", "colleagues",
+        "dating movies", "dating show style", "matchmaking", "blind date", "meet cute", "love at first sight",
+        "slow burn romance", "instant connection", "chemistry", "passion", "tension", "attraction",
+        "sensual romance", "erotic romance", "spicy romance", "hot romance", "intimate scenes",
+        "marriage movies", "wedding movies", "honeymoon", "commitment", "till death do us part",
+        "anniversary", "milestone romance", "life together", "family love", "parent child",
+        "family bond", "sibling love", "parent approved", "family disapproved", "cultural clash"
       ],
       "responses": [
-        "Try: Titanic, The Notebook, La La Land"
+        "Try: Titanic, The Notebook, La La Land, Pride and Prejudice, When Harry Met Sally, Sleepless in Seattle"
       ]
     },
-
     {
       "tag": "movie_thriller",
       "patterns": [
-        "thriller movie",
-        "suggest thriller films",
-        "I want thriller movie",
-        "suspense movies"
+        "thriller movie", "suggest thriller films", "I want thriller movie", "suspense movies",
+        "suspenseful movies", "mystery thriller", "mystery movies", "detective movies", "crime thriller",
+        "crime movies", "crime drama", "investigation movies", "murder mystery", "murder movies",
+        "whodunit", "who done it", "detective story", "police procedural", "cop movies",
+        "detective agency", "private detective", "private investigator", "noir movies", "noir thriller",
+        "gritty thriller", "dark thriller", "psychological thriller", "mind bending thriller",
+        "twisted thriller", "unreliable narrator", "plot twist", "shocking ending", "surprise ending",
+        "unexpected ending", "final twist", "jaw dropping", "cliffhanger", "suspense filled",
+        "edge of seat thriller", "page turner", "unputdownable", "tension filled", "nail biter",
+        "high stakes", "life or death", "survival thriller", "escape thriller", "race against time",
+        "time bomb", "countdown timer", "ticking clock", "urgent", "desperate situation",
+        "dangerous territory", "hostile environment", "trapped", "siege", "hostage", "hostage situation",
+        "negotiation", "standoff", "shootout", "heist thriller", "robbery thriller", "theft",
+        "con artists", "scam", "deception thriller", "betrayal", "treachery", "conspiracy thriller",
+        "conspiracy", "cover up", "secrets revealed", "hidden truth", "revelation", "shocking truth",
+        "scandal", "expose", "corruption", "political thriller", "government thriller", "spy thriller",
+        "espionage", "secret agents", "double agent", "undercover", "infiltration", "sabotage",
+        "terrorism thriller", "terrorist plot", "bomb threat", "biological threat", "nuclear threat",
+        "threatening movie", "menacing", "ominous", "foreboding", "dark atmosphere", "noir atmosphere"
       ],
       "responses": [
-        "Try: Inception, Shutter Island, Se7en"
+        "Try: Inception, Shutter Island, Se7en, Zodiac, Gone Girl, The Silence of the Lambs"
       ]
     },
-
     {
       "tag": "movie_sci_fi",
       "patterns": [
-        "sci fi movie",
-        "science fiction movies",
-        "space movies",
-        "future movies"
+        "sci fi movie", "science fiction movies", "space movies", "future movies", "futuristic movies",
+        "space exploration", "space adventure", "space travel", "interstellar", "galactic", "cosmic",
+        "planets", "alien worlds", "extraterrestrial", "aliens", "extra terrestrial beings", "first contact",
+        "alien invasion", "alien attack", "alien encounter", "UFO", "flying saucers", "spacecraft",
+        "spaceship", "starship", "space station", "space dock", "asteroid mining", "moon colony",
+        "mars colony", "terraforming", "post apocalyptic", "dystopian", "dystopia", "totalitarian",
+        "oppressive society", "surveillance state", "big brother", "orwell", "fahrenheit", "brave new world",
+        "alternate reality", "alternate timeline", "parallel universe", "alternate dimension",
+        "multiverse", "time travel", "time machine", "temporal", "chronological", "paradox",
+        "butterfly effect", "changing past", "changing future", "time loop", "time reset", "reboot",
+        "simulation", "virtual reality", "matrix style", "digital world", "cyberspace", "hackers",
+        "AI", "artificial intelligence", "robots", "android", "cyborg", "bionic", "augmentation",
+        "enhancement", "genetic modification", "mutation", "evolution", "posthuman", "transhuman",
+        "superpower", "superhuman", "metahuman", "powered individuals", "mutants", "mutant powers",
+        "genetic experimentation", "mad scientist", "laboratory", "experiment gone wrong", "lab accident",
+        "clone", "cloning", "duplicate", "copy", "replicant", "body double", "replacement",
+        "zombie like", "undead", "infected", "plague", "virus", "pandemic", "infection spread",
+        "technological wonder", "advanced technology", "future tech", "gadgets", "weapons systems",
+        "military sci fi", "weapons", "energy weapons", "laser", "plasma", "beam", "force field",
+        "teleportation", "wormhole", "black hole", "quantum", "physics bending", "reality bending"
       ],
       "responses": [
-        "Try: Interstellar, The Matrix, Blade Runner 2049"
+        "Try: Interstellar, The Matrix, Blade Runner 2049, Inception, Arrival, 2001: A Space Odyssey"
       ]
     },
-
     {
       "tag": "movie_drama",
       "patterns": [
-        "drama movie",
-        "emotional movies",
-        "serious films"
+        "drama movie", "emotional movies", "serious films", "dramatic films", "character driven",
+        "character study", "deep character", "character focus", "interpersonal drama", "human drama",
+        "emotional journey", "emotional arc", "character arc", "personal growth", "self discovery",
+        "coming of age", "adolescence", "teenage years", "youth", "childhood", "adulthood",
+        "midlife", "midlife crisis", "aging", "growing old", "life cycle", "life journey",
+        "biographical", "bio pic", "biography", "based on true events", "true story",
+        "real events", "real people", "historical", "history", "period drama", "epic",
+        "family drama", "family relationships", "parental", "parent child conflict", "sibling rivalry",
+        "family conflict", "family secrets", "family bonds", "generational", "multi generational",
+        "love and loss", "grief", "mourning", "death", "dying", "terminal", "mortality",
+        "relationships", "marriage", "divorce", "separation", "infidelity", "affair", "betrayal",
+        "sacrifice", "redemption", "forgiveness", "reconciliation", "conflict resolution",
+        "overcoming obstacles", "triumph", "perseverance", "determination", "struggle",
+        "injustice", "justice", "law", "legal drama", "courtroom", "trial", "lawyer",
+        "social commentary", "social issue", "societal problems", "racism", "sexism", "discrimination",
+        "inequality", "poverty", "wealth", "class differences", "social class", "status quo",
+        "rebellion", "protest", "activism", "revolution", "uprising", "resistance",
+        "corruption", "dishonesty", "morality", "ethics", "moral dilemma", "ethical choice",
+        "right vs wrong", "good vs evil", "ambiguous morality", "grey area", "complex characters",
+        "flawed protagonists", "anti hero", "villain perspective", "sympathetic villain", "humanized villain",
+        "slow burn", "building tension", "character focused", "dialogue heavy", "introspective"
       ],
       "responses": [
-        "Try: The Pursuit of Happyness, Forrest Gump, Fight Club"
+        "Try: The Pursuit of Happyness, Forrest Gump, Fight Club, Slumdog Millionaire, 12 Angry Men"
       ]
     },
-
+    {
+      "tag": "movie_fantasy",
+      "patterns": [
+        "fantasy movie", "fantasy films", "magical movies", "magic system", "enchanted world",
+        "magical world", "fantasy world", "fairy tale", "fairytale", "magical creatures",
+        "mythical creatures", "dragons", "griffins", "unicorns", "fairies", "elves", "dwarves",
+        "giants", "ogres", "trolls", "goblins", "demons", "devils", "angels", "god like beings",
+        "epic fantasy", "sword and sorcery", "sword and magic", "medieval fantasy", "dark fantasy",
+        "light fantasy", "urban fantasy", "modern fantasy", "contemporary fantasy", "fantasy adventure",
+        "quest", "journey", "adventure", "hero's journey", "chosen one", "prophecy", "destiny",
+        "magic system", "spells", "magic spells", "incantations", "curse", "curse lifting",
+        "enchantment", "hex", "witchcraft", "witches", "wizards", "sorcery", "sorcerers",
+        "warlocks", "shamans", "magic users", "mages", "battle mage", "war mage", "battle magic",
+        "magical combat", "spell casting", "magical duel", "magical showdown", "arcane power",
+        "magical items", "magic artifacts", "magical weapons", "magical sword", "enchanted object",
+        "ring", "amulet", "talisman", "grimoire", "book of magic", "spell book", "forbidden knowledge",
+        "ancient knowledge", "lost civilization", "lost world", "hidden realm", "secret world",
+        "parallel world", "other world", "spirit world", "spirit realm", "underworld", "afterlife",
+        "heaven", "hell", "purgatory", "mystical", "mysterious", "magical mystery", "enchanted",
+        "bewitched", "spellbound", "magical awakening", "magical transformation", "transformation",
+        "shape shifter", "shapeshifting", "metamorphosis", "magical change", "becoming",
+        "legendary", "mythical", "mythology", "folklore", "fable", "legend", "epic legend"
+      ],
+      "responses": [
+        "Try: The Lord of the Rings, Harry Potter, The Chronicles of Narnia, Stardust, Pan's Labyrinth"
+      ]
+    },
+    {
+      "tag": "movie_animation",
+      "patterns": [
+        "animated movie", "animation film", "animated films", "cartoon movie", "cartoons",
+        "anime", "japanese animation", "stop motion", "claymation", "CGI animation", "computer animation",
+        "hand drawn animation", "rotoscope", "motion capture", "3D animation", "2D animation",
+        "animated adventure", "animated comedy", "animated drama", "animated action", "animated horror",
+        "family animation", "kids animation", "children animation", "all ages animation",
+        "adult animation", "mature animation", "anime series", "anime movie", "anime style",
+        "studio ghibli", "ghibli style", "pokemon", "dragon ball", "naruto", "bleach",
+        "one piece", "attack on titan", "demon slayer", "tokyo ghoul", "jojo", "my hero",
+        "pixar", "disney", "dreamworks", "illumination", "warner animation", "sony pictures animation",
+        "talking animals", "anthropomorphic", "animals", "creatures", "monsters", "magical beings",
+        "colorful world", "bright colors", "vibrant", "whimsical", "fantastical", "imaginative",
+        "animated fantasy", "animated sci fi", "animated adventure", "animated mystery",
+        "animated musical", "musical animation", "singing characters", "dancing characters",
+        "slapstick humor", "visual humor", "comedy animation", "funny animation", "comedy gold",
+        "witty dialogue", "clever humor", "clever jokes", "dark humor", "satirical", "parody",
+        "adventure animation", "action animation", "battle animation", "fight scenes", "spectacular",
+        "amazing visuals", "stunning animation", "beautiful animation", "artistic style",
+        "unique style", "stylized", "distinctive", "memorable characters", "iconic characters"
+      ],
+      "responses": [
+        "Try: Spirited Away, The Lion King, Frozen, Toy Story, Finding Nemo, How to Train Your Dragon"
+      ]
+    },
+    {
+      "tag": "movie_adventure",
+      "patterns": [
+        "adventure movie", "adventure film", "adventure films", "adventure story", "adventurous",
+        "quest movie", "quest based", "journey movie", "epic journey", "grand adventure",
+        "exploration", "explorer", "discovered", "treasure hunt", "treasure map", "map",
+        "ancient treasures", "lost treasure", "hidden treasure", "artifact", "ancient artifact",
+        "archaeological", "archaeology", "excavation", "ruins", "ancient ruins", "tomb",
+        "jungle", "jungle adventure", "tropical adventure", "exotic location", "exotic adventure",
+        "desert adventure", "mountain adventure", "island adventure", "sea adventure", "ocean adventure",
+        "underwater adventure", "deep sea", "cave adventure", "cave exploration", "spelunking",
+        "plane crash", "stranded", "wilderness survival", "survival adventure", "danger",
+        "dangerous journey", "perilous", "hazardous", "treacherous", "obstacle course",
+        "obstacles", "challenges", "overcome challenges", "team adventure", "group adventure",
+        "buddy adventure", "pair", "duo", "unlikely partners", "reluctant partners", "forced together",
+        "adventure for kids", "family adventure", "kids adventure", "children adventure",
+        "coming of age adventure", "youth adventure", "teenage adventure", "young adventurer",
+        "swashbuckling", "daring do", "daredevil", "acrobatic", "stunt driven", "practical stunts",
+        "chase sequences", "action packed", "thrilling", "edge of seat", "heart pounding",
+        "discovery", "breakthrough", "revelation", "uncovering mystery", "solving puzzle",
+        "mysterious location", "mysterious events", "unknown territory", "uncharted", "unexplored",
+        "wonder and awe", "sense of wonder", "spectacular sights", "breathtaking", "awestruck"
+      ],
+      "responses": [
+        "Try: Indiana Jones, National Treasure, Jungle Cruise, The Mummy, Pirates of the Caribbean"
+      ]
+    },
+    {
+      "tag": "movie_western",
+      "patterns": [
+        "western movie", "western film", "western films", "cowboy movie", "cowboy films",
+        "old west", "wild west", "frontier", "frontier life", "outlaw", "gunslinger",
+        "sheriff", "deputy", "marshal", "lawman", "law and order", "vigilante justice",
+        "duel", "gunfight", "shoot out", "showdown", "standoff", "face off",
+        "horse", "horseback", "saddle", "ranch", "cattle ranch", "cattle drive",
+        "cattle herds", "saloon", "bar fight", "barroom brawl", "bar brawl",
+        "gold rush", "gold digger", "prospector", "mining", "mineral wealth",
+        "town", "frontier town", "mining town", "ghost town", "abandoned town",
+        "native american", "indigenous", "tribal conflict", "territorial dispute",
+        "cavalry", "army", "military western", "fort", "military fort",
+        "bandit", "bank robbery", "train robbery", "stagecoach robbery", "heist western",
+        "outlaw gang", "gang warfare", "gang rivalry", "organized crime western",
+        "bounty hunter", "bounty", "reward", "dead or alive", "capture alive",
+        "vengeance", "revenge western", "blood feud", "family feud", "vendetta",
+        "redemption", "reformed outlaw", "wanted criminal", "fugitive", "on the run",
+        "moral ambiguity", "grey area morality", "anti hero western", "sympathetic outlaw",
+        "hardened", "tough", "rugged", "no nonsense", "stoic", "strong silent type",
+        "gunman skill", "quick draw", "marksmanship", "shooting ability", "gunslinger legend",
+        "folklore", "myth", "legend", "mythic", "iconic western", "classic western"
+      ],
+      "responses": [
+        "Try: True Grit, The Good the Bad and the Ugly, Unforgiven, 3:10 to Yuma, Django Unchained"
+      ]
+    },
+    {
+      "tag": "movie_documentary",
+      "patterns": [
+        "documentary", "documentary film", "documentary films", "doc", "docu", "real life story",
+        "true events", "factual", "non fiction", "educational", "informative", "learning",
+        "nature documentary", "wildlife", "animal life", "ecosystem", "conservation",
+        "environmental", "climate", "earth", "planet", "natural world", "natural wonders",
+        "planet earth", "ocean life", "deep sea", "marine life", "arctic", "antarctica",
+        "jungle", "rainforest", "desert", "savanna", "migration", "animal behavior",
+        "biography documentary", "biographical doc", "life story", "biographical film",
+        "musician doc", "musician story", "band documentary", "music doc", "concert doc",
+        "artist biography", "artist doc", "art documentary", "art world", "art history",
+        "historical documentary", "historical events", "historical figures", "wars", "battles",
+        "revolution", "political history", "political doc", "government", "politics",
+        "social documentary", "social issues", "social problems", "societal issues",
+        "crime documentary", "criminal", "crime investigation", "forensic", "murder case",
+        "unsolved mystery", "cold case", "true crime", "criminal minds", "criminal investigation",
+        "investigation documentary", "investigation doc", "investigative journalism",
+        "expose", "hidden truth", "scandal", "corruption investigation", "whistleblower",
+        "health documentary", "medical documentary", "disease", "health crisis", "epidemic",
+        "mental health", "psychology", "psychiatry", "human behavior", "social psychology",
+        "science documentary", "space documentary", "astronomy", "physics", "biology",
+        "technology documentary", "tech innovation", "tech history", "digital", "internet",
+        "food documentary", "food industry", "cooking", "cuisine", "agriculture", "farming",
+        "cultural documentary", "culture", "traditions", "customs", "rituals", "ceremonies"
+      ],
+      "responses": [
+        "Try: Planet Earth, The Social Dilemma, Free Solo, March of the Penguins, Our Planet"
+      ]
+    },
     {
       "tag": "movie_mood_happy",
       "patterns": [
-        "feel good movie",
-        "happy movies",
-        "movies to cheer me up",
-        "uplifting films",
-        "I feel low suggest movie",
-        "comfort movies",
-        "positive vibe movies",
-        "movies that make you smile",
-        "good mood movies",
-        "relaxing feel good films",
-        "movies for happiness",
-        "inspiring movies",
-        "motivational films",
-        "heartwarming movies",
-        "movies with positive ending",
-        "fun happy movies",
-        "movies to feel better",
-        "light happy films",
-        "movies for a bad day",
-        "feel positive movies",
-        "cheerful movies",
-        "movies that lift mood",
-        "feel nice movies",
-        "warm and happy films",
-        "movies to enjoy peacefully"
+        "feel good movie", "happy movies", "movies to cheer me up", "uplifting films", "I feel low suggest movie",
+        "comfort movies", "positive vibe movies", "movies that make you smile", "good mood movies",
+        "relaxing feel good films", "movies for happiness", "inspiring movies", "motivational films",
+        "heartwarming movies", "movies with positive ending", "fun happy movies", "movies to feel better",
+        "light happy films", "movies for a bad day", "feel positive movies", "cheerful movies",
+        "movies that lift mood", "feel nice movies", "warm and happy films", "movies to enjoy peacefully",
+        "wholesome", "wholesome movies", "family friendly", "clean movies", "innocent", "pure",
+        "hopeful", "hopeful stories", "positive stories", "good people", "good characters",
+        "kindness", "compassion", "empathy", "helping others", "caring people", "community",
+        "friendship", "loyal friends", "best friends", "bonding", "teamwork", "cooperation",
+        "forgiveness", "reconciliation", "second chances", "redemption arc", "personal growth",
+        "overcoming adversity", "triumph over difficulty", "beating odds", "success story",
+        "achievement", "accomplishment", "reaching goals", "dream realization", "dreams come true",
+        "love and affection", "romantic love", "found family", "belonging", "acceptance",
+        "celebration", "festive", "holiday", "party", "celebration movie", "feel good ending",
+        "satisfying conclusion", "happy ending", "bittersweet happy", "earned happiness", "deserved happiness",
+        "joy", "laughter", "funny happy", "comedy happy", "light hearted fun", "playful",
+        "adventure fun", "exploration fun", "discovery fun", "wonder and amazement", "magical"
       ],
       "responses": [
-        "Try: Forrest Gump, The Intern, Zindagi Na Milegi Dobara"
+        "Try: Forrest Gump, The Intern, Zindagi Na Milegi Dobara, About Time, The Secret Life of Walter Mitty"
       ]
     },
-
     {
       "tag": "movie_mood_sad",
       "patterns": [
-        "sad movie",
-        "emotional movie",
-        "I feel sad suggest movie"
+        "sad movie", "emotional movie", "I feel sad suggest movie", "tear jerker", "cry movie",
+        "emotional impact", "emotional story", "heart breaking", "heartbreak", "painful",
+        "bittersweet", "melancholic", "melancholy", "somber", "dark", "gloomy", "depressing",
+        "loss", "losing someone", "death", "dying", "grief", "mourning", "bereavement",
+        "tragic", "tragedy", "tragic ending", "tragic love", "doomed love", "cursed love",
+        "sacrifice", "ultimate sacrifice", "unrequited love", "love lost", "love never found",
+        "regret", "missed opportunity", "what could have been", "unfulfilled dreams", "broken dreams",
+        "loneliness", "lonely", "isolation", "abandonment", "rejection", "heartache",
+        "struggle", "hardship", "suffering", "pain", "anguish", "distress", "suffering",
+        "injustice", "wronged", "victim", "treated unfairly", "oppressed", "persecuted",
+        "difficult relationships", "toxic relationships", "abusive", "unhealthy dynamics",
+        "family conflict", "estrangement", "family separation", "broken family", "fractured family",
+        "addiction", "alcoholism", "substance abuse", "mental illness", "depression", "anxiety",
+        "trauma", "traumatic", "ptsd", "survivor guilt", "survivor trauma", "scarred",
+        "war trauma", "combat trauma", "military trauma", "violent events", "violent history",
+        "moral conflict", "ethical dilemma", "conscience", "guilt", "shame", "regret",
+        "redemption sought", "seeking forgiveness", "making amends", "reparations",
+        "slow burn sad", "building sadness", "quiet sadness", "understated sadness",
+        "powerful emotions", "overwhelming emotions", "cathartic", "therapeutic", "healing journey"
       ],
       "responses": [
-        "Try: The Fault in Our Stars, A Walk to Remember"
+        "Try: The Fault in Our Stars, A Walk to Remember, The Boy in Striped Pajamas, Life is Beautiful"
       ]
     },
-
+    {
+      "tag": "movie_mood_exciting",
+      "patterns": [
+        "exciting movie", "exciting films", "adrenaline movie", "adrenaline rush", "high energy",
+        "fast paced", "quick paced", "non stop action", "relentless", "intense", "intense films",
+        "thrilling", "thrills", "nail biter", "page turner", "can't look away", "gripping",
+        "suspenseful", "suspense filled", "keeps you guessing", "unpredictable", "shocking",
+        "surprising", "surprising twist", "jaw dropping", "wow factor", "mindblowing",
+        "spectacular", "grand", "epic scale", "epic", "monumental", "breathtaking",
+        "heart pounding", "pulse pounding", "nerve wracking", "nerve tingling", "edge of seat",
+        "no time to breathe", "breathless", "dizzy", "spinning", "chaotic", "frantic",
+        "wild ride", "roller coaster", "ups and downs", "emotional highs", "emotional lows",
+        "dramatic", "dramatically", "cliffhanger", "cliffhangers", "cliff hanger ending",
+        "come back next episode", "next chapter", "serial", "serialized", "ongoing drama",
+        "everything on the line", "high stakes", "life or death", "dangerous", "hazardous",
+        "risk", "risky", "perilous", "dangerous situations", "mortal danger", "lethal",
+        "explosive", "explosive situations", "explosive character", "character outburst", "volatile",
+        "volatile character", "unpredictable character", "wild character", "crazy antics"
+      ],
+      "responses": [
+        "Try: Mission Impossible, Fast and Furious, Top Gun, Uncut Gems, The Raid, John Wick"
+      ]
+    },
+    {
+      "tag": "movie_mood_romantic",
+      "patterns": [
+        "romantic mood", "romantic feel", "romantic atmosphere", "romantic setting", "romantic story",
+        "date night movie", "date movie", "couples movie", "romantic evening", "intimate movie",
+        "love story", "love movie", "love films", "love focused", "relationship focused",
+        "chemistry", "couple chemistry", "romantic tension", "sexual tension", "passionate",
+        "sensual", "intimate moments", "intimate scenes", "romance scenes", "love scenes",
+        "embrace", "kiss", "kissing scene", "romantic kiss", "first kiss", "final kiss",
+        "moonlight", "starlight", "sunset", "sunrise", "beautiful scenery", "romantic setting",
+        "flower garden", "beach", "beach scene", "seaside", "countryside", "picturesque",
+        "grand gesture", "romantic gesture", "proposal", "proposal scene", "marriage proposal",
+        "engagement", "wedding", "wedding day", "honeymoon", "newlyweds", "married life",
+        "anniversary", "milestone", "love grows", "love deepens", "love strengthens",
+        "reconnection", "rediscovery", "falling in love", "fell in love", "love struck",
+        "infatuation", "crush", "pining", "longing", "yearning", "desire", "wanting",
+        "absence makes heart grow", "distance love", "long distance", "separated", "reunion",
+        "against odds", "overcoming obstacles", "fighting for love", "fighting for relationship",
+        "compromise", "understanding", "forgiveness", "second chance love", "true love",
+        "soulmate", "meant to be", "destiny", "fate", "written in stars", "meant for each other"
+      ],
+      "responses": [
+        "Try: Before Sunrise, Crazy Rich Asians, The Half of It, Roman Holiday, Breakfast at Tiffany's"
+      ]
+    },
+    {
+      "tag": "movie_mood_thoughtful",
+      "patterns": [
+        "thought provoking", "makes you think", "philosophical", "philosophy film", "existential",
+        "existential crisis", "meaning of life", "purpose", "questioning", "questioning reality",
+        "reality exploration", "perception", "perspective", "perspective shift", "viewpoint change",
+        "moral questions", "ethical questions", "moral ambiguity", "grey area", "no clear answer",
+        "complex themes", "deep themes", "layered", "multi layered", "nuanced", "sophisticated",
+        "intelligent film", "smart film", "cerebral", "intellectual", "thought experiment",
+        "what if", "hypothetical", "speculation", "speculative", "exploratory", "investigative",
+        "question authority", "questioning power", "questioning system", "questioning society",
+        "social commentary", "commentary film", "satirical", "ironic", "satirize", "critique",
+        "human nature", "human condition", "human psychology", "human behavior", "psyche",
+        "consciousness", "self awareness", "self reflection", "introspection", "looking inward",
+        "identity", "identity crisis", "who am I", "self discovery", "finding self",
+        "truth", "truth seeking", "truth finding", "search for truth", "hidden truth",
+        "reality check", "wake up call", "eye opener", "perspective changing", "life changing",
+        "profound", "impactful", "meaningful", "purpose driven", "meaningful message",
+        "art film", "art cinema", "arthouse", "indie film", "independent", "experimental",
+        "unconventional", "avant garde", "boundary pushing", "genre bending", "genre defying"
+      ],
+      "responses": [
+        "Try: Arrival, Memento, Requiem for a Dream, Donnie Darko, Oldboy, The Prestige"
+      ]
+    },
     {
       "tag": "movie_bollywood",
       "patterns": [
-        "hindi movies",
-        "bollywood movies",
-        "indian films"
+        "hindi movies", "bollywood movies", "indian films", "hindi films", "bollywood cinema",
+        "indian cinema", "bollywood songs", "bollywood music", "song and dance", "musical numbers",
+        "bollywood romance", "bollywood love", "bollywood action", "bollywood thriller",
+        "tamil movies", "telugu movies", "kannada movies", "malayalam movies", "regional films",
+        "south indian", "north indian", "indian language", "regional cinema", "parallel cinema",
+        "art films indian", "indie films indian", "independent indian", "bollywood style",
+        "arranged marriage", "traditional values", "family oriented", "family drama",
+        "dual culture", "immigrant", "NRI", "diaspora", "cultural clash", "culture conflict",
+        "rural india", "urban india", "village setting", "city setting", "indian cities",
+        "delhi", "mumbai", "bangalore", "kolkata", "goa", "rajasthan", "kerala",
+        "hindi language", "hindi dialogue", "hindi music", "hindi songs", "singing",
+        "dancing", "bollywood dancing", "choreography", "lavish production", "colorful",
+        "vibrant", "energetic", "lively", "festive", "celebration", "celebration of life",
+        "festivals", "holi", "diwali", "wedding festival", "marriage", "shaadi",
+        "joint family", "multigenerational", "parents", "children", "grandparents", "relatives",
+        "humor", "comedy relief", "comic character", "funny", "slapstick", "physical comedy",
+        "romantic storyline", "love angle", "love triangle", "rivals in love", "romantic tension"
       ],
       "responses": [
-        "Try: 3 Idiots, Dangal, Zindagi Na Milegi Dobara"
+        "Try: 3 Idiots, Dangal, Zindagi Na Milegi Dobara, Lagaan, Rang De Basanti, Queen"
       ]
     },
-
     {
       "tag": "movie_hollywood",
       "patterns": [
-        "english movies",
-        "hollywood movies"
+        "english movies", "hollywood movies", "american movies", "hollywood films", "us films",
+        "english language", "english dialogue", "american english", "english speaking",
+        "hollywood production", "major studio", "studio production", "big budget", "blockbuster",
+        "hollywood action", "hollywood romance", "hollywood comedy", "hollywood drama",
+        "hollywood thriller", "hollywood horror", "hollywood sci fi", "hollywood fantasy",
+        "award winning", "oscar winner", "golden globe", "emmy award", "cannes", "venice",
+        "festivals", "film festival", "sundance", "tribeca", "sxsw", "toronto",
+        "top rated", "highly rated", "imdb rating", "rotten tomatoes", "critics darling",
+        "american cities", "new york", "los angeles", "chicago", "miami", "vegas", "seattle",
+        "american culture", "american life", "american values", "american dream",
+        "english names", "american characters", "american accents", "american humor",
+        "hollywood glamour", "celebrity", "famous actors", "star power", "a list",
+        "box office hit", "box office blockbuster", "top grossing", "money maker",
+        "franchise", "franchise movie", "series", "sequel", "prequel", "spinoff", "reboot"
       ],
       "responses": [
-        "Try: Interstellar, Avengers, The Dark Knight"
+        "Try: Interstellar, Avengers, The Dark Knight, Avatar, Titanic, Inception"
       ]
     },
-
     {
       "tag": "movie_trending",
       "patterns": [
-        "trending movies",
-        "popular movies",
-        "latest movies",
-        "top rated movies"
+        "trending movies", "popular movies", "latest movies", "top rated movies", "best movies",
+        "recent releases", "new releases", "upcoming movies", "cinema now", "in theaters",
+        "box office", "top grossing", "box office hit", "blockbuster", "hit movie",
+        "viral movie", "viral films", "trending on social media", "twitter trending",
+        "netflix trending", "streaming trending", "streaming hit", "streaming popularity",
+        "cultural phenomenon", "cultural moment", "watercooler", "everyone talking", "must watch",
+        "everyone watching", "word of mouth", "recommendation", "recommended", "highly recommended",
+        "buzz worthy", "generating buzz", "lots of buzz", "anticipation", "highly anticipated",
+        "hype", "hyped", "hyped movie", "living up to hype", "exceeding expectations",
+        "overrated", "underrated", "sleeper hit", "dark horse", "hidden gem",
+        "critics choice", "audience choice", "audience rating", "user rating",
+        "award season", "awards contender", "oscar bait", "prestige film", "awards nominee",
+        "awards winner", "wins awards", "award winning", "multiple awards", "sweep",
+        "year end", "year's best", "best of year", "best of decade", "best of all time",
+        "anniversary", "anniversary release", "re release", "restored", "remaster", "special edition"
       ],
       "responses": [
-        "Popular picks: Oppenheimer, Dune, Barbie"
+        "Popular picks right now: Oppenheimer, Dune Part Two, Barbie, Killers of the Flower Moon, The Brutalist"
       ]
     },
-
     {
       "tag": "movie_kids",
       "patterns": [
-        "movies for kids",
-        "family movies",
-        "children movies"
+        "movies for kids", "family movies", "children movies", "children films", "kids films",
+        "animated for kids", "animation for kids", "kids animation", "family animation",
+        "wholesome", "clean", "age appropriate", "all ages", "family friendly", "pg rated",
+        "no violence", "no scary", "no adult", "no crude", "no inappropriate", "safe",
+        "talking animals", "cute characters", "lovable characters", "memorable characters",
+        "adventure for kids", "adventure family", "family adventure", "quest", "hero journey",
+        "friendship", "friendship movie", "friend movie", "teamwork", "cooperation", "helping",
+        "lessons", "moral lesson", "teaching moment", "learning", "educational",
+        "magical", "wonder", "magic", "fantasy world", "enchanted", "wizard", "fairy tale",
+        "princess", "prince", "royal", "castle", "kingdom", "adventure to save",
+        "rescue mission", "saving the day", "hero", "heroic", "brave", "courage",
+        "overcoming fear", "facing fear", "scared but brave", "growing up", "becoming mature",
+        "finding self", "self discovery", "believe in yourself", "you can do it",
+        "diversity", "inclusive", "different characters", "multicultural", "representation",
+        "funny kids", "kids humor", "silly humor", "physical comedy", "visual gags",
+        "songs", "musical numbers", "catchy songs", "memorable songs", "singing",
+        "bright colors", "colorful", "vibrant", "beautiful animation", "stunning visuals",
+        "short", "feature length", "movie length", "tv movie", "special", "special movie"
       ],
       "responses": [
-        "Try: Toy Story, Frozen, Finding Nemo"
+        "Try: Toy Story, Frozen, Finding Nemo, How to Train Your Dragon, Zootopia, Coco"
       ]
     },
-
+    {
+      "tag": "movie_cast_actor",
+      "patterns": [
+        "movies with actor", "movies starring", "movies featuring", "featuring actor",
+        "tom hanks", "leonardo dicaprio", "meryl streep", "jack nicholson", "denzel washington",
+        "tom cruise", "johnny depp", "brad pitt", "george clooney", "will smith",
+        "ryan gosling", "timothee chalamet", "oscar isaac", "jake gyllenhaal", "matthew mcconaughey",
+        "christian bale", "joaquin phoenix", "robert downey jr", "chris evans", "mark ruffalo",
+        "scarlett johansson", "angelina jolie", "natalie portman", "cate blanchett", "sandra bullock",
+        "jennifer lawrence", "emma watson", "zendaya", "margot robbie", "elizabeth debicki",
+        "actor based", "celebrity crush", "famous actor", "actor filmography", "actor movies",
+        "bollywood actor", "bollywood star", "bollywood hero", "bollywood heroine",
+        "amitabh bachchan", "shah rukh khan", "aamir khan", "hrithik roshan", "akshay kumar",
+        "deepika padukone", "priyanka chopra", "alia bhatt", "katrina kaif", "sonam kapoor",
+        "can you recommend movie with", "i like this actor", "actor fan", "big fan", "admire",
+        "actor's filmography", "all movies", "actor best movies", "actor top movies",
+        "actor career", "actor evolution", "actor growth", "actor range", "versatile actor"
+      ],
+      "responses": [
+        "Sure! Tell me which actor you like and I can recommend their best movies!"
+      ]
+    },
+    {
+      "tag": "movie_director",
+      "patterns": [
+        "movies by director", "directed by", "director films", "director's movies",
+        "christopher nolan", "quentin tarantino", "david fincher", "martin scorsese",
+        "steven spielberg", "james cameron", "peter jackson", "anthony russo", "joe russo",
+        "denis villeneuve", "alex garland", "paul thomas anderson", "coen brothers",
+        "tim burton", "ghibli", "hayao miyazaki", "isao takahata", "makoto shinkai",
+        "anurag kashyap", "imtiaz ali", "abhishek chaubey", "sriram raghavan", "madhur bhandarkar",
+        "rakeysh omprakash mehra", "arun soriya", "nitesh tiwari", "rajkumar hirani",
+        "director's vision", "director style", "distinctive style", "signature", "director's touch",
+        "directorial debut", "first film", "breakthrough", "established director", "veteran director",
+        "prolific director", "next film", "upcoming film", "latest film", "recent film",
+        "recommend director", "fan of director", "admire director", "best director",
+        "director's works", "complete filmography", "all films", "notable films", "defining films",
+        "directorial evolution", "director development", "director trajectory", "director career arc"
+      ],
+      "responses": [
+        "Great! Which director do you like? I can recommend their best films!"
+      ]
+    },
+    {
+      "tag": "movie_by_rating",
+      "patterns": [
+        "high rated movies", "top rated movies", "rated high", "5 star movies", "5 star films",
+        "best movies", "best films", "all time best", "greatest movies", "greatest films",
+        "highly recommended", "must watch", "cannot miss", "should watch", "worth watching",
+        "low rated movies", "low rated films", "poorly rated", "not recommended", "avoid",
+        "rating above", "imdb score", "imdb rating", "rotten tomatoes score", "critics score",
+        "audience rating", "user rating", "viewer rating", "viewer score", "people's choice",
+        "oscar nominated", "oscar winning", "oscar winner", "award winner", "award nominated",
+        "critics favorite", "critics choice", "critics darling", "critics' pick", "pick of critics",
+        "underrated", "underrated movie", "hidden gem", "sleeper hit", "dark horse",
+        "overrated", "overhyped", "not living up to hype", "disappointing despite hype"
+      ],
+      "responses": [
+        "I can help you find highly rated movies! What genre or mood are you interested in?"
+      ]
+    },
+    {
+      "tag": "movie_decade",
+      "patterns": [
+        "2020s movies", "2010s movies", "2000s movies", "1990s movies", "1980s movies",
+        "2020", "2021", "2022", "2023", "2024", "2019", "2018", "2017",
+        "recent", "recent movies", "recent films", "latest", "newest", "contemporary",
+        "modern", "modern movies", "present day", "current", "current films",
+        "old movies", "classic movies", "classic films", "classics", "timeless",
+        "vintage", "retro", "throwback", "golden age", "golden age hollywood",
+        "silent films", "black and white", "black and white movies", "early cinema",
+        "70s movies", "80s movies", "90s movies", "nineties", "eighties", "seventies",
+        "y2k", "millennium", "transition era", "new millennium", "century", "21st century",
+        "retro appeal", "nostalgic", "nostalgia", "throwback feeling", "remember when",
+        "before era", "after era", "era defining", "era capturing", "period capture"
+      ],
+      "responses": [
+        "What time period interests you? I can recommend movies from any era!"
+      ]
+    },
+    {
+      "tag": "movie_budget",
+      "patterns": [
+        "big budget", "high budget", "expensive movies", "blockbuster budget", "major production",
+        "low budget", "indie budget", "small budget", "micro budget", "guerrilla filmmaking",
+        "direct to video", "straight to streaming", "streaming only", "independent", "indie",
+        "arthouse", "art house", "underground", "cult", "cult film", "experimental",
+        "limited release", "wide release", "theatrical release", "limited theater",
+        "production quality", "high production", "production values", "professional",
+        "amateur", "homemade", "student film", "film school", "passion project",
+        "expensive sets", "elaborate sets", "minimal sets", "simple production",
+        "location shooting", "studio filming", "practical effects", "cgi effects", "green screen",
+        "on location", "on set", "behind scenes", "making of", "production documentary"
+      ],
+      "responses": [
+        "Are you looking for big blockbuster productions or indie films?"
+      ]
+    },
     {
       "tag": "fallback",
       "patterns": [
-        "asdfgh",
-        "random text",
-        "blah blah",
-        "I don't understand",
-        "qwerty",
-        "nothing",
-        "whatever",
-        "hmmmmm",
-        "can you cook food",
-        "what is the weather",
-        "tell me about politics",
-        "abracadabra",
-        "who won the match",
-        "book me a cab",
-        "open youtube",
-        "play songs",
-        "do my homework",
-        "random nonsense",
-        "somerandommessage",
-        "unrelated query"
+        "asdfgh", "random text", "blah blah", "I don't understand", "qwerty", "nothing",
+        "whatever", "hmmmmm", "can you cook food", "what is the weather", "tell me about politics",
+        "abracadabra", "who won the match", "book me a cab", "open youtube", "play songs",
+        "do my homework", "random nonsense", "somerandommessage", "unrelated query",
+        "help me", "can you help", "what can you do", "capabilities", "what do you do",
+        "about you", "who are you", "what are you", "define yourself", "describe yourself",
+        "your purpose", "your function", "your role", "your job", "your duty",
+        "how do you work", "how are you trained", "how do you learn", "your training",
+        "your knowledge", "how much do you know", "your expertise", "your specialization",
+        "testing message", "test", "debug", "error", "broken", "not working",
+        "bug report", "complaint", "issue", "problem", "glitch", "crash",
+        "feedback", "suggestion", "idea", "improvement", "feature request",
+        "appreciation", "thank you", "thanks bot", "good job", "well done", "impressed",
+        "satisfied", "happy with response", "helpful", "very helpful", "exactly what i needed"
       ],
       "responses": [
-        "Sorry, I didn't get that. You can ask for movie recommendations by genre or mood."
+        "Sorry, I didn't get that. I'm specialized in movie recommendations. You can ask for movies by genre (action, comedy, horror, drama, thriller, sci-fi, fantasy, animation, adventure, western, documentary), mood (happy, sad, exciting, romantic, thoughtful), language (bollywood, hollywood, regional), cast, director, rating, or year!"
       ]
     }
-
   ]
 }
