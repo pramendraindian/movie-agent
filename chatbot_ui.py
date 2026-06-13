@@ -345,7 +345,7 @@ def get_bot_reply(prompt: str, image_base64: str | None = None) -> tuple[str, bo
         response = requests.post(
             st.session_state.api_url,
             json=payload,
-            timeout=60 if image_base64 else 30,
+            timeout=180 if image_base64 else 30,
         )
         response.raise_for_status()
         data = response.json()
